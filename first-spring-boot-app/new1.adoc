@@ -1,0 +1,70 @@
+
+Strcututra URI: http://mike.tuiasi.ro/labsd04.pdf
+URI vs URl
+
+`@RequestParam` asociază parametri din interogare
+
+Proprietăți standard ale unei aplicații Spring Boot: https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html. 
+
+http://inf.ucv.ro/~mihaiug/courses/mps/labs/junit/
+
+maevn wrapper
+
+== Exerciții și probleme
+
+. Modificați `application.properties` din exemplu astfel încăt aplicația să fie accesibil la portul 8088.
+. Scrieți un controller care trebuie să primească parametrii (`@RequestParameter`): a de tip intreb, b de tip string si c de tip double; 
+șa eșuieze dacă a lipsește; in caz că lispsește b să nu eșuieze ci să folosească valoarea implicită x.
+. Scrieți un controller care trebuie să primească variabilele de cale (`@PathVariable`): a de tip intreb, b de tip string si c de tip double; 
+șa eșuieze dacă a lipsește; in caz că lispsește b să nu eșuieze.
+. Scrieți un controller care rapsunde cu 502 dacă se indeplinește condiția
+. Avem următoarle url-uri /abc/a si /abc/b, scrieți 2 controllere atfel incăt primul să prelucreze cerera /abc/a iar al doiulea /abc/b;
+. Rezovlați exercițiile din adnotări.
+. Adaugați dependnința X la proiect.
+. Cumverificam dacă există maevn în sitem și dacă nu cum folosim maven wrapper?
+
+ 
+
+
+
+Hai sa dam aici 2 exemple de proiecte Spring cu toate elemente indespensabile: maven, junit, IntelliJ IDEA ...
+
+
+[filetree]
+--
+lib
+|-- tilt
+|   |-- asciidoc.rb
+|   |-- builder.rb
+|   |-- coffee.rb
+|   |-- css.rb
+|   |-- csv.rb
+|   |-- erb.rb
+|   |-- ...
+|   `-- yajl.rb
+`-- tilt.rb
+--
+
+[plantuml, format=svg, opts="inline"]
+----
+legend
+Root
+|_ Element 1
+  |_ Element 1.1
+  |_ Element 1.2
+|_ Element 2
+  |_ Element 2.1
+end legend
+----
+
+Exercitii?
+1. intrebari cu variante de raspuns
+2. proiecte d eimbunatatic
+3. proiect de la zeo
+
+apoi urmatoarea lectie va fi ban-uri
+apoi teste junit
+apoi...
+apoi baze de date
+
+

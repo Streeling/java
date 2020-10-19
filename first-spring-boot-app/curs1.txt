@@ -1,0 +1,30 @@
+TODO Terminologia: http://users.utcluj.ro/~civan/thesis_files/2018_BSocaciu.pdf
+
+== Curs 1
+
+Să începem cu un exemplu:  
+Exemplu 1: https://github.com/spring-guides/gs-spring-boot/tree/master/initial
+
+În Exemplul 1 sunt remaracabile următoarele noțiuni:
+
+* Controller
+* HTTP GET
+* MVC
+* `@RestController`
+* Adnotări
+* `@RequestMapping`
+* REST
+* `package`
+* `import` (`Alt+Enter` în IntelliJ IDEA)
+* `@SpringBootApplication`
+* Structura proiectului Maven
+* Build Ciclul de viață Maven
+
+Extindem Exemplu 1 cu teste
+https://spring.io/guides/gs/spring-boot/: Add Unit Tests
+
+Unit Test - sample 1#Add Unit Tests
+
+Actuator  - sample 1#Add Unit Tests
+
+Exemplu 1: https://spring.io/guides/gs/rest-service/
