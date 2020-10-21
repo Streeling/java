@@ -1,0 +1,90 @@
+= Adnotări
+
+NOTE: Acest text reprezintă, în mare măsură, traducerea documentației oficiale de la adresa
+https://docs.oracle.com/javase/tutorial/java/annotations/index.html.
+
+[quote, Socrate]
+____
+Eu știu că nu știu nimic
+____
+
+Adnotările reprezintă o formă de metadate. Ele sunt utilizate pentru a furniza date despre program dar nu sunt parte a
+programului propriu-zis.
+
+Pare a fi o definiție (explicație) recursivă sau foarte vaga. Nu e nimic, in continuare venim cu exemple si explicații.
+
+== Formatul unei adnotări
+
+Un exemplu simplu de adnotare:
+
+[source, java]
+----
+@Entity
+----
+
+Simbolul „A rond” (@, în engleză „At sign”) indică compilatorul că ceea ce urmează e o adnotare. În următorul exemplu,
+numele adnotării este `Override`:
+
+[source, java]
+----
+@Override
+void mySuperMethod() { ... }
+----
+
+Adnotările pot conține elemente, aceste elemente posedă nume și pot primi diferite valori (putem face analogie cu
+parametrii unei metode):
+
+[source, java]
+----
+@Author(
+   name = "Benjamin Franklin",
+   date = "3/27/2003"
+)
+class MyClass() { ... }
+----
+
+sau
+
+[source, java]
+----
+@SuppressWarnings(value = "unchecked")
+void myMethod() { ... }
+----
+
+În cazul când adnotarea conține un singur element si numele acestuia e `value`, putem omite numele:
+
+[source, java]
+----
+@SuppressWarnings("unchecked")
+void myMethod() { ... }
+----
+
+Dacă adnotarea nu are alemente, atunci parantezele (rotunde) pot fi omise, așa cum e exemplificat mai sus pentru
+`@Override`.
+
+Putem folosi mai multe adnotări pentru aceeași declarație:
+
+[source, java]
+----
+@Author(name = "Jane Doe")
+@EBook
+class MyClass { ... }
+----
+
+Daca adnotările au același tip, atunci spunem ca avem adnotări care se repetă (în engleză „repeating annotations”):
+
+[source, java]
+----
+@Author(name = "Jane Doe")
+@Author(name = "John Smith")
+class MyClass { ... }
+----
+
+Adnotările care se repeta sunt „suportate” începând cu Java SE 8.
+
+Adnotările `Override` și `SuppressWarnings`, din exemplele de mau sus, sunt adnotări predefinite din Java (SE) și le
+puteți găsi în pachetul `java.lang`. Mai general, orice adnotare predefinită Java este definită fie în `java.lang`, fie
+în pachetul `java.lang.annotation` din Java SE API.
+
+E posibil să definim și propriile tipuri de adnotări. Cum ar fi adnotările `Author` și `EBook` din exemplele
+precedente.
