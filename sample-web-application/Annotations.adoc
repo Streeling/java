@@ -1,4 +1,4 @@
-= Adnotări
+= Adnotări: Annotations
 
 NOTE: Acest text reprezintă, în mare măsură, traducerea documentației oficiale de la adresa
 https://docs.oracle.com/javase/tutorial/java/annotations/index.html.
@@ -124,9 +124,9 @@ void monitorTemperature() throws
 
 Acest fel de adnotări se numesc adnotări de tip (în engleză _type annotations_).
 
-==Adnotări predefinite
+== Adnotări predefinite
 
-===Tipuri de adnotări folosite de limbajul Java
+=== Tipuri de adnotări folosite de limbajul Java
 
 @Deprecated:: această adnotare indică că elementul marcat este “depășit” și nu mai este recomandat de a fi utilizat.
 Compilatorul generează un _warning_ atunci când este folosita o metodă, clasă sau câmp ce are adnotarea @Deprecated.
