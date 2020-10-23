@@ -1,7 +1,16 @@
-= Prima aplicație web de tip REST
+= Sample Web Application [with Spring Boot]: Aplicație web simplă [utilizând Spring Boot]
 
-. În cele ce urmează vom implementa o simplă aplicație web de tip REST folosind Spring Boot. În acest scop vom folosi
+The content of this file is in Romanian.
+
+În cele ce urmează vom implementa o simplă aplicație web de tip REST folosind Spring Boot. În acest scop vom folosi
 ghid-ul https://spring.io/guides/gs/spring-boot/ de pe situl oficial al framework-ului Spring.
+
+Mainîn detaliu obiectivele acestui ghid sunt următoarele:
+• crearea unui proiect Spring Boot;
+− folosind Maven;
+− folosind Gradle;
+• primii paşi în utilizarea expunerii servicii
+
 
 . Ghidul area următoarea structură pe secțiuni:
   - _What You Will build_
