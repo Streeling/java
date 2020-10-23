@@ -24,7 +24,7 @@ Mainîn detaliu obiectivele acestui ghid sunt următoarele:
   - _Add Unit Tests_
   - _Add Production-grade Services_
   - _View Spring Boot’s Starters_
-  - _JAR Support and Groovy Support_
+  - _JAR Support and Groovy Support_ (vom ignora )
   - _Summary_
   - _See Also_
 
@@ -90,6 +90,7 @@ _de la zero_
 de coamnda `curl localhost:8080`).
 
 . TO BE CONTINUED... (despre controller și adnotări)
+  - pentru mai multe detalii despre adnotări consultați ./Annotations.adoc[Annotations.adoc]
 
 . În _Add Unit Tests_ veți lucra deja în dosarul `src/test`.
 
@@ -103,3 +104,17 @@ de coamnda `curl localhost:8080`).
   - https://www.sanfoundry.com/advanced-java-questions-answers-annotations/
   - https://www.baeldung.com/java-annotations-interview-questions
   - TO BE CONTINUED...
+
+== Exerciții și probleme
+
+. Scrieți un controller (sau modificați cel existent) care trebuie să primească parametrii (`@RequestParameter`): a de tip intreb, b de tip string si c de tip double;
+șa eșuieze dacă a lipsește; in caz că lispsește b să nu eșuieze ci să folosească valoarea implicită x.
+. Scrieți un controller care trebuie să primească variabilele de cale (`@PathVariable`): a de tip intreb, b de tip string si c de tip double;
+șa eșuieze dacă a lipsește; in caz că lispsește b să nu eșuieze.
+. Scrieți un controller care rapsunde cu 502 dacă se indeplinește condiția
+. Avem următoarle url-uri /abc/a si /abc/b, scrieți 2 controllere atfel incăt primul să prelucreze cerera /abc/a iar al doiulea /abc/b;
+. Rezovlați exercițiile din adnotări.
+. Adaugați dependnința X la proiect.
+. Cumverificam dacă există maevn în sitem și dacă nu cum folosim maven wrapper?
+. Modificați fișierul _application.properties_ (din acest exemplul) astfel încăt aplicația să fie accesibil la portul
+8088.
