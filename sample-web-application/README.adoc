@@ -83,7 +83,7 @@ _de la zero_
 de coamnda `curl localhost:8080`).
 
 . Analizați clasa `HelloController`, în special adnotările `@RestController` și `@RequestMapping`; mai multe amănunte
-despre adnotări în /Annotations.adoc
+despre adnotări în https://github.com/Streeling/java/blob/main/sample-web-application/Annotations.adoc[Annotations.adoc]
 
 . În _Add Unit Tests_ veți lucra deja în dosarul `src/test`.
 
