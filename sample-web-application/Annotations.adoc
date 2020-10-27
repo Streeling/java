@@ -31,7 +31,7 @@ numele adnotării este `Override`:
 void mySuperMethod() { ... }
 ----
 
-Adnotările pot conține elemente, aceste elemente posedă nume și pot primi diferite valori (putem face analogie cu
+Adnotările pot conține atribute, aceste atribute posedă nume și pot primi diferite valori (putem face analogie cu
 parametrii unei metode):
 
 [source, java]
@@ -72,7 +72,7 @@ Putem folosi mai multe adnotări pentru aceeași declarație:
 class MyClass { ... }
 ----
 
-Daca adnotările au același tip, atunci spunem ca avem adnotări care se repetă (în engleză „repeating annotations”):
+Daca adnotările au același tip, atunci spunem ca avem adnotări care se repetă (în engleză _repeating annotations_):
 
 [source, java]
 ----

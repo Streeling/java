@@ -82,7 +82,8 @@ _de la zero_
 ** pentru a vizualiza rezutlatul, deschideți navigatorul web și accesați adresa http://localhost:8080/ (nu e nevoie
 de coamnda `curl localhost:8080`).
 
-. TO BE CONTINUED... (despre controller și adnotări)
+. Analizați clasa `HelloController`, în special adnotările `@RestController` și `@RequestMapping`; mai multe amănunte
+despre adnotări în /Annotations.adoc
 
 . În _Add Unit Tests_ veți lucra deja în dosarul `src/test`.
 
@@ -95,3 +96,19 @@ de coamnda `curl localhost:8080`).
 . Pentru exersare recomand următoarle întrebări+răspunsuri:
 - https://www.sanfoundry.com/advanced-java-questions-answers-annotations/
 - https://www.baeldung.com/java-annotations-interview-questions
+
+== Exerciții și probleme
+
+. Scrieți un controller (sau modificați cel existent) care trebuie să primească parametrii (`@RequestParameter`): `a`
+de tip întreg, `b` de tip `string` și `c` de tip `double`; să eșuieze dacă `a` lipsește; în caz că lipsește `b` să nu
+eșuieze ci să folosească valoarea implicită `x`.
+. Scrieți un controller care trebuie să primească variabilele de cale (`@PathVariable`): `a` de tip întreg, `b` de tip
+`string` și `c` de tip `double`; să eșuieze dacă `a` lipsește; in caz că lispsește `b` să nu eșuieze.
+. Scrieți un controller care rapsunde cu 502 dacă se indeplinește o anumită condiție;
+. Avem următoarle url-uri `/abc/a` și `/abc/b`, scrieți 2 controllere atfel incăt primul să prelucreze cerera
+`/abc/a` iar al doilea `/abc/b`;
+. Rezovlați exercițiile din adnotări.
+. Adaugați dependnința X la proiect.
+. Cum verificam dacă există maven în sitem și dacă nu e, cum folosim maven wrapper?
+. Modificați fișierul _application.properties_ (din acest exemplul) astfel încăt aplicația să fie accesibil la portul
+8088.
