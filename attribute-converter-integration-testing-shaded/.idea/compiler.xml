@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="application" target="1.8" />
-      <module name="attribute-converter-integration-testing-shaded" target="8" />
+      <module name="attribute-converter-integration-testing-shaded" target="1.5" />
       <module name="library" target="1.8" />
     </bytecodeTargetLevel>
   </component>
