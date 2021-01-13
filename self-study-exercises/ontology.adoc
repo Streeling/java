@@ -1,0 +1,112 @@
+= Java 1
+
+principii:
+
+. ordinea (algoritmul) conteaza [ordinea gresita a cuvitnelor intr-o carte]
++
+[quote, The Ghost, The Ghost Writer]
+____
+Well, all the words are there.
+They're just in the wrong order.
+____
+. orice sarcina are multe detalii (variabile); trebuie sa te concentrezi doar la cele importatne, care te ajuta sa ajungi la assert, fa-te ca nu le vezi pe celellatwe, step by step
+. fiti gata ca e complicat aici in doc nu fa la fel ca toti, abordeaza diferit, cand faci la fel ca toti mergi prin aceleasi puncte cheie neexplicit si nu se atrage atentia asupra lor, e cum ai face aceleasi exerciii, trebuie diversitate, daca vei porni altfel vei face greseli si asta e super.
+. unicile intrbari care se accepta sunt ce;e de la formulare, fraza din S King
++
+[quote, Stephen King, The Dark Tower III: The Waste Lands]
+The lessons which are remembered the longest, Roland knew, are always the ones that are self-taught.
+. sa nu-ti fie frica sa gresesti; intr-un manual de filosfie pe care l-am citit in timpul studentiei era scris ca la adevar poti ajunge si din greseala; de exemplu te apusi sa rezolvi un exercitiu de matematica, daca nu-s erori in rezolvare atunci solutia la care ai ajuns e cea cautata, dar e posibil sa comiti erori la rezolvare dar prin coincidenta (noroc) sa ajungi la solutia corecta; cand incerci ceva si ajungi la final fara greseli eu nu-s sigur ca n-ma erori de intelegere; cand gresesc asta e demosntreaza ca am erori de intelegere si incercand sa trec de greseala rezolv eroarea de intelegere.   -repere
+
+== Sarcini de lucru
+
+. Instaleaza JDK 8.
+Verificare:: Din linia de comanda verifica versiunea de java
++
+[source, shell]
+java -version
++
+se va afisa un mesaj analog cu cel ce urmeaza
++
+[source, shell]
+----
+C:\Users\rdumbraveanu>java -version
+java version "1.8.0_251"
+Java(TM) SE Runtime Environment (build 1.8.0_251-b08)
+Java HotSpot(TM) 64-Bit Server VM (build 25.251-b08, mixed mode)
+----
++
+Eventual ai putea sa intri in dosarul _C:\Program Files\Java_ si sa analizezi continutul acestuia, trebuie sa existe dosar care sa inceapa cu _jdk_ si sa contina cifra 8, de exemplu _jdk1.8.0_251_. 
+
+. Instaleaza IntelliJ IDEA Community.
+Sugestie:: https://www.jetbrains.com/idea/download/#section=windows
+
+. Pregateste IDEA
+JDK home de exemplu
+
+. Elaboreaza o aplicatie web simpla care utilizeaza Spring Boot.
+Sugestie:: https://start.spring.io/, alege Java 8, iar din depentinte include _Spring Web_.
+Verificare:: 
+Vom verifica succesului acestei sarcini prin analogie cu Apache HTTP Server, acesta afiseaza mesajul _It works!_ la accesarea http://localhost/ daca e instalat cu succes. Asadar deschideti proiectul generat in IDEA si in _Project_ tool window creati clasa `controller.HomeController` cu urmatorul continut:
++
+[source,java]
+----
+@RestController("/")
+public class HomeController {
+
+    @GetMapping("/")
+    public String home() {
+        return "It works!";
+    }
+}
+----
++
+rulati proiectul, apoi accesati http://localhost/ folosind navigatorul web, presupun ca intuiesti care mesaj trebui sa fie afisat?
+
+. Creeaza clasa `Customer` cu trei atribute: `id` (tip `Integer`), `firstName` (tip `String`), `lastName` (tip `String`); pentru cele trei atribute, trebuie definite getter-e si setter-e.
+Verificare:: Creeaza urmatorul controller in pachetul controller, CustomerController
+
+[source, java]
+----
+package <>
+
+import <Customer>
+import <Junit>
+
+@RestController("/customers")
+public class CustomerController {
+    
+    
+    public String customer() {
+        Customer customer = new Customer();  
+        customer.setFirstName("Jack");
+        customer.setLastName("Bauer");
+
+        return "Customer{" + "id=" + this.id + ", name='" + this.name + '\'' + ", role='" + this.role + '\'' + '}';
+    }
+    
+}
+----
+
+. pagina web care afiseaza customerul
+
+. pagina web care afiseaza lista de customeri
+
+. pagina web care redacteaza un customer
+
+. pagina web care valideaza un customer
+
+. pagina web care creaza un customer
+
+. stocarea acestora inbaza de date
+
+. legatura Customer Address
+
+. CRUD Address
+
+. search
+
+
+
+== Apendice/Glosar
+
+getter setter
