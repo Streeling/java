@@ -92,7 +92,7 @@ ruleaza proiectul, apoi acceseaza http://localhost/ folosind navigatorul web, pr
 
 . Creeaza clasa `Customer` cu trei atribute: `id` (tip `Integer`), `firstName` (tip `String`), `lastName` (tip `String`); pentru cele trei atribute, trebuie definite getter-e si setter-e.
 Verificare:: Creeaza urmatorul controller in pachetul controller, CustomerController
-
++
 [source, java]
 ----
 package <Calea pana la clasa curenta>
