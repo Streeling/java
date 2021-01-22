@@ -88,21 +88,25 @@ public class HomeController {
 }
 ----
 +
-ruleaza proiectul, apoi acceseaza http://localhost/ folosind navigatorul web, presupun ca intuiesti care mesaj trebui sa fie afisat?
+ruleaza proiectul, apoi acceseaza http://localhost:8080/ folosind navigatorul web, presupun ca intuiesti care mesaj trebui sa fie afisat?
 
 . Creeaza clasa `Customer` cu trei atribute: `id` (tip `Integer`), `firstName` (tip `String`), `lastName` (tip `String`); pentru cele trei atribute, trebuie definite getter-e si setter-e.
-Verificare:: Creeaza urmatorul controller in pachetul controller, CustomerController
+Verificare:: Creeaza urmatorul controller CustomerController
 +
 [source, java]
 ----
-package <Calea pana la clasa curenta>
+package <calea.pana.la.clasa.curenta>
 
-import <Calea pana la clasa Customer>
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/customers")
+import <calea.pana.la.clasa.Customer.inclusiv>
+
+@RestController
 public class CustomerController {
-    
-    public String customer() {
+
+    @GetMapping("/customers")
+    public Customer customer() {
         Customer customer = new Customer();  
         customer.setFirstName("Jack");
         customer.setLastName("Bauer");
@@ -112,9 +116,45 @@ public class CustomerController {
 }
 ----
 +
-ruleaza proiectul, apoi acceseaza http://localhost/customers folosind navigatorul web, ar trebui sa vezi reprezentarea JSON a obiectului `Customer` create in controler.
+ruleaza proiectul, apoi acceseaza http://localhost:8080/customers folosind navigatorul web, ar trebui sa vezi reprezentarea JSON a obiectului `Customer` creat in controller.
 
-. [pagina web care afiseaza customerul]
+. In fisierul _pom.xml_, in sectiunea _dependencies_ adauga dependinta:
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+----
++
+Creeaza in dosarul _src/main/resources/templates_ fisierul _customer.html_ cu urmatorul continut:
++
+[source,html]
+----
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div>
+        <p>ID: <span th:text="${customer.id}">none</span>.</p>
+        <p>First name: <span th:text="${customer.firstName}">none</span>.</p>
+        <p>Last name: <span th:text="${customer.lastName}">none</span>.</p>
+    </div>
+</body>
+</html>
+----
++
+Iar in `CustomerController` la metoda `customer()` adauga in lista de parametri `Model model`, schimba tipul de intoarcere din `Customer` in `String`, ianuntrul metodei, 
+in loc de `return customer;` vom returna valoarea `"customer"` (de fapt e numele fisierului _customer.html_ fara extensie) si in final ianinte de a returna aceasta valoare vom pune variabila `customer` pe model 
+in felul urmator `model.addAttribute("customer", customer)`.
+
+Verificare:: acceseaza http://localhost:8080/customers folosind navigatorul web, ar trebui sa vezi o pagina HTML cu atributele obiectului `Customer` creat in controller.
+Sugestie:: In caz ca se va afisa mesajul de eroare _This application has no explicit mapping for /error, so you are seeing this as a fallback._ deschide menu:View[Tool Windows > Maven], 
+in fereastra nou aparuta deschide nodul _Dependencies_ si verifica daca in lista de dependinte e prezenta _spring-boot-starte-thymeleaf_; in caz ca lipseste click pe _Reload All Maven Projects_.
 
 . [pagina web care afiseaza lista de customeri]
 
