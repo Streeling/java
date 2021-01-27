@@ -140,7 +140,7 @@ Creeaza in dosarul _src/main/resources/templates_ fisierul _customer.html_ cu ur
 </head>
 <body>
     <div>
-        <p>ID: <span th:text="${customer.id}">none</span>.</p>
+        <p>Id: <span th:text="${customer.id}">none</span>.</p>
         <p>First name: <span th:text="${customer.firstName}">none</span>.</p>
         <p>Last name: <span th:text="${customer.lastName}">none</span>.</p>
     </div>
@@ -148,17 +148,100 @@ Creeaza in dosarul _src/main/resources/templates_ fisierul _customer.html_ cu ur
 </html>
 ----
 +
-Iar in `CustomerController` la metoda `customer()` adauga in lista de parametri `Model model`, schimba tipul de intoarcere din `Customer` in `String`, ianuntrul metodei, 
-in loc de `return customer;` vom returna valoarea `"customer"` (de fapt e numele fisierului _customer.html_ fara extensie) si in final ianinte de a returna aceasta valoare vom pune variabila `customer` pe model 
+Iar in `CustomerController` inlocuieste adnotarea `@RestController` cu `@Controller`, la metoda `customer()` adauga in lista de parametri `Model model`, schimba tipul de intoarcere din `Customer` in `String`, inauntrul metodei, 
+in loc de `return customer;` vom returna valoarea `"customer"` (de fapt e numele fisierului _customer.html_ fara extensie) si in final inainte de a returna aceasta valoare vom pune variabila `customer` pe model 
 in felul urmator `model.addAttribute("customer", customer)`.
 
 Verificare:: acceseaza http://localhost:8080/customers folosind navigatorul web, ar trebui sa vezi o pagina HTML cu atributele obiectului `Customer` creat in controller.
 Sugestie:: In caz ca se va afisa mesajul de eroare _This application has no explicit mapping for /error, so you are seeing this as a fallback._ deschide menu:View[Tool Windows > Maven], 
 in fereastra nou aparuta deschide nodul _Dependencies_ si verifica daca in lista de dependinte e prezenta _spring-boot-starte-thymeleaf_; in caz ca lipseste click pe _Reload All Maven Projects_.
 
-. [pagina web care afiseaza lista de customeri]
+Intrebare:: In caz ca vom uita sa inlocuim adnotarea `@RestController` cu `@Controller`, atunci navigatorul va afisa doar cuvantul _customer_; de ce?
 
-. [pagina web care redacteaza un customer]
+. Muta variabila locala `Customer customer` din metoda `String customer(Model)` cu un nivel mai sus, adica deja cu rol de atribut al clasei `CustomerController`, iar initializarea variabilei o vei face in constructor:
++
+[source, java]
+----
+public class CustomerController {
+
+    private Customer customer;
+
+    public CustomerController() {
+        customer = new Customer();
+        customer.setFirstName("Jack");
+        customer.setLastName("Bauer");
+    }
+	
+	/* ... */
+}
+----
++
+astfel in metoda `customer(Model)` vor ramane doar:
++
+[source, java]
+----
+model.addAttribute("customer", customer);
+
+return "customer";
+----
++
+Adauga metoda care va fisa formularul
++
+[source, java]
+----
+    @GetMapping("/customers/edit")
+    public String customerForm(Model model) {
+        model.addAttribute("customer", customer);
+
+        return "customer-form";
+    }
+----
++
+si metoda care va primi datele de la formular
++
+[source, java]
+----
+    @PostMapping("/customers")
+    public String customerSubmit(@ModelAttribute Customer customer, Model model) {
+        this.customer.setFirstName(customer.getFirstName());
+        this.customer.setLastName(customer.getLastName());
+
+        return "redirect:/customers";
+    }
+----
++
+In fisierul _customer.html_ adauga
++
+[source,html]
+----
+<a th:href="@{/customers/edit}">Edit</a>
+----
++
+si creeaza fisierul _customer-form.html_
++
+[source, html]
+----
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Form</h1>
+    <form action="#" th:action="@{/customers}" th:object="${customer}" method="post">
+    	<p>Id: <input type="text" th:field="*{id}" /></p>
+        <p>First name: <input type="text" th:field="*{firstName}" /></p>
+		<p>Last name: <input type="text" th:field="*{lastName}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>
+----
+
+Verificare:: acceseaza http://localhost:8081/customers, apasa pe link-ul _Edit_, modifica careva valori in formular si _Submit_; in pagina nou aparauta trebuie sa vezi noile date.
+
+. [pagina web care afiseaza lista de customeri]
 
 . [pagina web care valideaza un customer]
 
