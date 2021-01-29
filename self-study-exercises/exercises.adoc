@@ -239,11 +239,60 @@ si creeaza fisierul _customer-form.html_
 </html>
 ----
 
-Verificare:: acceseaza http://localhost:8081/customers, apasa pe link-ul _Edit_, modifica careva valori in formular si _Submit_; in pagina nou aparauta trebuie sa vezi noile date.
+Verificare:: acceseaza http://localhost:8081/customers, apasa pe link-ul _Edit_, modifica careva valori in formular si _Submit_; in pagina nou aparauta trebuie sa vezi noile date. iara daca iarasi Edit, deja in firmular sa vezi noile date.
+
+Intrebare:: 1. daca nu stergem First Name si sau Last Name. ce se va intampla; 2. de ce nu se modifica Id-ul?
+
+. Adauga dependinta Maven `org.springframework.boot:spring-boot-starter-validation`. In clasa `Customer`, pe atributele `firstName` si `lastName` pune perechea de adnotari (din pachetul `javax.validation.constraints`):
++
+[source, java]
+----
+@NotNull
+@Size(min=2, max=30)
+----
++
+In controler pe langa adnotarea `@ModelAttribute` adaugati si `@Valid` la parametrul `customer` in metoda `customerSubmit()`, tot la aceasta metoda adaugati parametrul `BindingResult bindingResult`, iar inauntrul metodei, 
+chiar la inceput pune verifcarea validitatii obiectului primit:
++
+[source, java]
+----
+if (bindingResult.hasErrors()) {
+	return "customer-form";
+}
+----
++
+In formularul din _customer-form.html_ in cadrul paragrafului (`<p>`) pentru campul _First name_ pune fragmentul
++
+[source, html]
+----
+<span class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name error</span>
+----
++
+exact inainte de sfarsitul paragrafului (`</p>`), iar in cadrul paragrafului pentru campul _Last name_, pune:
++
+[source, html]
+----
+<span class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name error</span>
+----
++
+Optional in acest fisier, in `<head>...</head>` putem punce stilurile:
++
+[source, html]
+----
+<style>
+.error {color: red;}
+</style>
+----
+
+Verificare:: acceseaza http://localhost:8081/customers, apasa pe link-ul _Edit_, modifica careva valori, dar numaidecat lasa gol unul din campurile _First name_ sau _Last name_ in formular si _Submit_.
+
+. Adauga proprietatea `email` de tip `String` pe clasa `Customer`. Proprietatea trebuie sa fie editabila de utilizator.
++
+Verificare:: acceseaza http://localhost:8081/customers, apasa pe link-ul _Edit_, in formular trebuie sa fie prezent campul _Email_, care sa accepte doar adrese de email valide.
+
+Sugestie:: vezi aici https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-gettingstarted-createmodel si aici https://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/javax/validation/constraints/package-summary.html care ar fi cea mai potrivita adnotarea pentru validarea campului `email`.
 
 . [pagina web care afiseaza lista de customeri]
-
-. [pagina web care valideaza un customer]
 
 . [pagina web care creaza un customer]
 
