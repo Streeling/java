@@ -292,14 +292,178 @@ Verificare:: acceseaza http://localhost:8081/customers, apasa pe link-ul _Edit_,
 
 Sugestie:: vezi aici https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-gettingstarted-createmodel si aici https://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/javax/validation/constraints/package-summary.html care ar fi cea mai potrivita adnotarea pentru validarea campului `email`.
 
-. [pagina web care afiseaza lista de customeri]
+. In `CustomerController` inlocuieste atributul `Customer customer` cu lista `List<Customer> customers`, respectiv modifica initializarea din constructor in felul urmator:
++
+[source, java]
+----
+customers = new ArrayList<>();
+Customer customer = new Customer();
+customer.setId(1);
+customer.setFirstName("Jack");
+customer.setLastName("Bauer");
+customer.setEmail("jbauer@example.com");
+customers.add(customer);
+----
++
+iar mai jost de constructor adauga metoda:
++
+[source, java]
+----
+private Customer findById(Integer id) { 
+	// aici itereaza prin toate elementele listei customers 
+	// si compara .getId() cu parametrul id
+	// in caz ca sunt egale intoarce acest element. 
+	// Daca nu s-au gasit elemente intoarce null.
+}
+----
++
+In metodele adnotate cu `@GetMapping("/customers")` si `@GetMapping("/customers/edit")` modifica adnotarile in `@GetMapping("/customers/{id}")` si `@GetMapping("/customers/edit/{id}")`, la lista de parametri adauga `@PathVariable(name = "id") Integer id`, 
+iar in corpurile acestor metode inlocuieste utilizarea variabilei `customer` cu `findById(id)`. In metoda `customerSubmit()` comenteaza liniile de code care sunt cu eroare. 
+Actualizeaza sabloanele html: in _customer.html_ inlocuieste `<a th:href="@{/customers/edit}">Edit</a>` cu `<a th:href="@{/customers/edit/{id}(id=${customer.id})}">Edit</a>`. In _customer-form.html_, 
+la elementu-ul HTML de tip `input` care afiseaza id-ul adauga atributul `readonly`.
 
-. [pagina web care creaza un customer]
+Verificare:: ruleaza proiectul, apoi acceseaza http://localhost:8080/customer/1 folosind navigatorul web, ar trebui sa fie afisat customer-ul.
+
+. Adauga fisierul _customer-list.html_:
++
+[source, html]
+----
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer list</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Customer list</h1>
+    <div>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Edit</th>
+            </tr>
+            <tr th:each ="customer : ${customers}">
+                <td th:text="${customer.id}"></td>
+                <td th:text="${customer.firstName + ' ' + customer.lastName}"></td>
+                <td th:text="${customer.email}"></td>
+                <td><a th:href="@{/customers/edit/{id}(id=${customer.id})}">Edit</a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+----
++
+iar in controler adauga metoda:
++
+[source, java]
+----
+    @GetMapping("/customers")
+    public String customer(Model model) {
+        model.addAttribute("customers", customers);
+        return "customer-list";
+    }
+----
++
+In fisierele _customer.html_ si _customer-form.html_ imediat sub elementul `<h1>` pune acest fragment:
++
+[source, html]
+----
+    <div>
+        <a th:href="@{/customers/}">Back to customer list</a>
+    </div>
+----
+
+Verificare:: ruleaza proiectul, apoi acceseaza http://localhost:8080/customers/ folosind navigatorul web, trebuie sa fie afisat un tabel cu un customer, iar din orice alta pagina un click pe _Back to customer list_ trebuie sa ne aduga la aceasta tabel.
+
+. Modifica metoda `customerSubmit()` astfel incat daca `customer` are id-ul diferit de `null`, atunci cu ajutorul metodei `findById()` acel customer este gasit in lista si atributele sale sunt actualizate (`firstName`, `lastName` si `email`, nu si `id`). 
+In caz ca id-ul este `null`. Determina id-ul ultimului customer din lista, si seteaza-l ca `+1`. La final obiectul nou creat trebuie adaugat la lista `customers`, iar valoarea returnata schimba in:
++
+[source, java]
+----
+return "redirect:/customers/" + <newCustomer>.getId();
+----
++ 
+In fisierul _customer-list.html_ undeva sus, dupa `h1`, adauga:
++
+[source, html]
+----
+    <div>
+        <a th:href="@{/customers/add}">Add customer</a>
+    </div>
+---- 
++
+Ia in controler sub `customerSubmit()`:
++
+[source, java]
+----
+    @GetMapping("/customers/add")
+    public String customerAdd(Model model) {
+        return "customer-form";
+    }
+----
+
+Verificare:: acceseaza http://localhost:8080/customers/, click pe _Add customer_, completeaza formularul, dupa click pe _Submit_, ar trebui sa vezi customer-ul nou creat; click pe _Back to customer list_ si in table ar trebuie sa vezi doi customer-i.
+
+. Ai observat ca in ambele cazuri: fie modificam un customer fi il cream, titlul paginii e acelasi _Form_. Pentru a face titlul dinamic ne vom folosi de aceeasi conditie: `id` este sau nu `null`. 
+Dupa cum ai observat formulele dinamice le scriem in atribute prefixate cu `th:`. Asa vom face si aici (_customer-form.html_):
++
+[source, html]
+----
+<h1 th:text="${customer.id == null} ? 'Create a customer' : 'Edit a customer:'" />
+----
+
+Verificare:: editeaza un customer, titlul trebuie sa inceapa cu _Edit ..._, iar la creare - cu _Create ..._. 
+
+. Creeaza clasa
++
+[source, java]
+----
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
+	public ResourceNotFoundException() {
+        super();
+    }
+
+    public ResourceNotFoundException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
+    public ResourceNotFoundException(final String message) {
+        super(message);
+    }
+
+    public ResourceNotFoundException(final Throwable cause) {
+        super(cause);
+    }
+}
+----
++
+In metoda cu `@GetMapping("/customers/{id}")`, in loc de `model.addAttribute("customer", findById(id))`:
++
+[source, java]
+----
+Customer customer = findById(id);
+if (customer == null) throw new ResourceNotFoundException(MessageFormat.format("Customer with id = {0}", id));
+model.addAttribute("customer", customer);
+return "customer";
+----
++
+In _resources/application.properties_:
++
+[source, properties]
+----
+server.error.include-message=always
+----
+
+Verificare:: acceseaza http://localhost:8081/customers/2, trebuie sa fie afisata pagina care sa contina mesajul de eroare corespunzator.
+
+. [search]
 
 . [stocarea acestora inbaza de date]
 
 . [legatura Customer Address]
 
 . [CRUD Address]
-
-. [search]
