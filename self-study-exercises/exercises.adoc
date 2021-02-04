@@ -467,6 +467,49 @@ Verificare::
 .. acceseaza http://localhost:8080/customers/edit/2, ar trebui sa vezi pagina de eroare. 
 .. acceseaza http://localhost:8080/customers/edit/1, pune break point pe prima linie din metoda `customerSubmit()`, kbd:[Alt+Shift+F8], apeleazea `setId(2)` pentru primul element din lista `customers`, apoi kbd:[F9], ar trebui sa vezi pagina de eroare. 
 
+. In pagina de eroare putem include mai multe detalii `server.error.include-binding-errors` (`never`, `always`, `on-param`), `server.error.include-exception` (`false`, `true`), `server.error.include-message` (`never`, `always`, `on-param`) si `server.error.include-stacktrace` (`never`, `always`, `on-param`). 
+Mai multe detalii pe pagina https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html. Daca punem valoarea `on-param` atunci aceste optiuni vor fi activate da in query string va fi prezent parametrul corespunzator:
+`errors`, `message` si `trace`. 
+
+. Aceasta pagina de eroare (_Whitelabel Error Page_) poate fi deactivata prin proprietatea `server.error.whitelabel.enabled=false` sau adaptata prin crearea propirului sablon _error.html_. Creeaza fisierul _error.html_ cu titlul _Error Page_ (`<h1>`):
++
+[source, html]
+----
+<!-- ... -->
+<body>
+	<!-- ... -->
+	<div>
+		<p>Something went wrong or the page does not exist anymore...</p>
+        <table>
+            <tr>
+                <td>Timestamp:</td>
+                <td th:text="${timestamp}"></td>
+				<!-- ... -->
+            </tr>
+        </table>
+	</div>
+</body>
+<!-- ... -->
+----
++
+si completeaza tabelul cu inca 6 randuri pentru urmatoare atribute de pe model: `path`, `error`, `status`, `message`, `exception`, `trace`.
+
+Verificare:: acceseaza http://localhost:8080/customers/edit/2, ar trebui sa vezi pagina de eroare cu toate amanuntele despre eroare.
+
+. [Pentru ca nu e recomandad ca aplicatia sa afiseze prea multe detalii despre eroare atunci cand aplicatia ruleaza in productie, le vom limita in dependenta de mediul aplicatiei.]
+
+. Creeaza clasa `CustomerRepository` si adnoteaza-o cu `@Component`. Muta in ea tot codul din controler care tine de crearea si accesarea customer-ilor, cu alte cuvinte: atributul `customers`, initializarea acestuia din controler si metoda `findById()`.
+Codul care adauga/actualizeaza un customer va fi implementat intr-o metoda nou: `Customer save(Customer customer)`, aceasta metoda va verifica atributul `id` de la parametrul `customer` pentru a decide daca e un obiect nou sau existent. 
+Toate metodele din `CustomerRepository` vor avea visibilitatea `public`. Referirea acestuia in controler se va face gratie codului:
++
+[source, java]
+----
+	private CustomerRepository customerRepository;
+	
+	public CustomerCOntroller(CustomerRepository customerRepository) {
+		this.customerRepository = customerRepository;
+	}
+----
 
 . [search]
 
