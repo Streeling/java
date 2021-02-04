@@ -446,7 +446,7 @@ In metoda cu `@GetMapping("/customers/{id}")`, in loc de `model.addAttribute("cu
 [source, java]
 ----
 Customer customer = findById(id);
-if (customer == null) throw new ResourceNotFoundException(MessageFormat.format("Customer with id = {0}", id));
+if (customer == null) throw new ResourceNotFoundException("Customer with id = " + id + " not found"));
 model.addAttribute("customer", customer);
 return "customer";
 ----
@@ -459,6 +459,14 @@ server.error.include-message=always
 ----
 
 Verificare:: acceseaza http://localhost:8081/customers/2, trebuie sa fie afisata pagina care sa contina mesajul de eroare corespunzator.
+
+. Implementeaza tratarea erorilor prin exceptii (`ResourceNotFoundException`) in toate metodele unde este utilizata metods `findById()`.
+
+Verificare:: 
++
+.. acceseaza http://localhost:8080/customers/edit/2, ar trebui sa vezi pagina de eroare. 
+.. acceseaza http://localhost:8080/customers/edit/1, pune break point pe prima linie din metoda `customerSubmit()`, kbd:[Alt+Shift+F8], apeleazea `setId(2)` pentru primul element din lista `customers`, apoi kbd:[F9], ar trebui sa vezi pagina de eroare. 
+
 
 . [search]
 
