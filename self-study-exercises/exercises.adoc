@@ -27,6 +27,7 @@ incercand sa trec de greseala rezolv eroarea de intelegere.
 == Sarcini de lucru
 
 . Instaleaza JDK 8.
+Sugestie:: https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 Verificare:: Din linia de comanda verifica versiunea de java
 +
 [source, shell]
@@ -71,7 +72,9 @@ Verificare::
 ----
 
 . Elaboreaza o aplicatie web simpla care utilizeaza Spring Boot.
-Sugestie:: https://start.spring.io/, alege Java 8, iar din depentinte include _Spring Web_.
+Sugestie:: 
+.. https://start.spring.io/, alege Java 8, iar din dependinte include _Spring Web_
+.. pentru a creea o clasa prin intermediul IDEA: clic dreapta pe nodul _src/mani/java/<careva pachet>_, alege menu:New[Java Class], introduce denumirea clasei si kbd:[Enter]
 Verificare:: 
 Vom verifica succesului acestei sarcini prin analogie cu Apache HTTP Server; acesta afiseaza mesajul _It works!_ la accesarea http://localhost/ daca e instalat cu succes. 
 Asadar deschide proiectul generat in IDEA si in _Project_ tool window creeaza clasa `controller.HomeController` cu urmatorul continut:
@@ -91,6 +94,7 @@ public class HomeController {
 ruleaza proiectul, apoi acceseaza http://localhost:8080/ folosind navigatorul web, presupun ca intuiesti care mesaj trebui sa fie afisat?
 
 . Creeaza clasa `Customer` cu trei atribute: `id` (tip `Integer`), `firstName` (tip `String`), `lastName` (tip `String`); pentru cele trei atribute, trebuie definite getter-e si setter-e.
+Sugestie:: pentru a genera getter-ele si setter-ele in IDEA, clic dreapta oriunde in codul sursa a clasei si alege menu:Generate...[Getter and Setter], in lista de atribute alege acelea pentru care vrei sa-ti fie generate getter-ele si setter-ele si btn:[OK]. 
 Verificare:: Creeaza urmatorul controller CustomerController
 +
 [source, java]
@@ -401,6 +405,7 @@ Ia in controler sub `customerSubmit()`:
 ----
     @GetMapping("/customers/add")
     public String customerAdd(Model model) {
+	    model.addAttribute("customer", new Customer());
         return "customer-form";
     }
 ----
@@ -506,12 +511,28 @@ Toate metodele din `CustomerRepository` vor avea visibilitatea `public`. Referir
 ----
 	private CustomerRepository customerRepository;
 	
-	public CustomerCOntroller(CustomerRepository customerRepository) {
+	public CustomerController(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
 	}
 ----
 
-. [search]
+. In `CustomerRepository` adauga metoda:
++
+[source, java]
+----
+public List<Customer> findByAllFields(String value);
+----
++
+aceasta metoda va returna lista de customeri pentru care cel putin `firstName`, `lastName` sau `email` va contine parametrul `value` ca substring. In controler:
++
+[source, java]
+----
+@GetMapping("/customers/search")
+public String search(@RequestParam("q") String query) {
+}
+----
+
+. bean-uri
 
 . [stocarea acestora inbaza de date]
 
