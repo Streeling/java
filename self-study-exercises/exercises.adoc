@@ -1,4 +1,4 @@
-= Self-study Exercises 
+= Exercitii care insotesc studiul individual: Self-study Exercises
 :experimental:
 
 Repere (sau „regulile jocului”):
@@ -503,7 +503,8 @@ Verificare:: acceseaza http://localhost:8080/customers/edit/2, ar trebui sa vezi
 
 . [Pentru ca nu e recomandad ca aplicatia sa afiseze prea multe detalii despre eroare atunci cand aplicatia ruleaza in productie, le vom limita in dependenta de mediul aplicatiei.]
 
-. Creeaza clasa `CustomerRepository` si adnoteaza-o cu `@Component`. Muta in ea tot codul din controler care tine de crearea si accesarea customer-ilor, cu alte cuvinte: atributul `customers`, initializarea acestuia din controler si metoda `findById()`.
+. Creeaza clasa `CustomerRepository` si adnoteaza-o cu `@Component`. Muta in ea tot codul din controler care tine de crearea si accesarea customer-ilor, cu alte cuvinte: atributul `customers`, initializarea acestuia din controler 
+(cu redenumirea constructorului) si metoda `findById()` (doar corpul metodei).
 Codul care adauga/actualizeaza un customer va fi implementat intr-o metoda nou: `Customer save(Customer customer)`, aceasta metoda va verifica atributul `id` de la parametrul `customer` pentru a decide daca e un obiect nou sau existent. 
 Toate metodele din `CustomerRepository` vor avea visibilitatea `public`. Referirea acestuia in controler se va face gratie codului:
 +
@@ -515,6 +516,10 @@ Toate metodele din `CustomerRepository` vor avea visibilitatea `public`. Referir
 		this.customerRepository = customerRepository;
 	}
 ----
++
+In contextul framework-ului acest procedeu (declararea dependintelor in constructor) se numeste _injectarea dependintelor prin constructor_ 
+(cu alte cuvinte Spring va lua asupra s-a crearea obiectului de tip `CustomerRepository` si-l va injecta ca parametru la constructorul controlerului, atunci cand se va construi insusi controlerul). 
+Corespunzator `CustomerRepository` este  o _dependinta_ pentru `CustomerController` deoarece controlerul foloseste metode ale acestei clase (depinde de functionalul acesteia).
 
 . In `CustomerRepository` adauga metoda:
 +
@@ -529,12 +534,64 @@ aceasta metoda va returna lista de customeri pentru care cel putin `firstName`, 
 ----
 @GetMapping("/customers/search")
 public String search(@RequestParam("q") String query) {
+	List<Customer> customers = customerRepsitory.findByAllFields(q);
+	return "search";
 }
 ----
++
+Creeaza fisierul _search.html_, care va contine 2 parti: prima un formular de cautare, iar mai jost rezultatul cautarii.
 
-. bean-uri
+. Intr-un proiect Spring Boot creeaza controller-ul `MovieController` si clasa `MovieLister`. Adnoteaza controlerul cu `@RestController`, iar `MovieLister` cu `@Service` (e un caz particular al adnotarii `@Component`).
+In `MovieLister` defineste metoda `list()`, aceasta metoda trebuie sa fie publica si sa intoarca un `String`, de exemplu `"A list of movies"`.
+Injecteaza `MovieLister` in `MovieController`, iar in `MovieController` defineste o metoda care va fi mapata la adresa "/movies/"  si va intoarce raspunsul de la serviciul `MovieLister`.
 
-. [stocarea acestora inbaza de date]
+Verificare:: acceseaza http://localhost:8080/movies, ar trebuie sa vezi reprezentarea JSON a textului _A list of movies_.
+
+.  care ar reprezenta URL-ul paginii informative a unui film (Wikipedia, IMDb, Rotten Tomatoes, КиноПоиск etc)
+
+. [Injectare dupa id/nume/tip] ImdbMovieFinder , WikipediaMovieFinder etc
+
+. [Erori daca nu e gasit ceva pentru injectare]
+
+. [Injectare de proprietati din .properties]
+
+. [liste]
+
+. [dictionare]
+
+. [fuzionarea dictionarelor]
+
+. [null si empty value]
+
+. [DependsOn]
+
+. [Lazy]
+
+. [Applicatio0nContext]
+
+. [scop: prototip]
+
+. [scop: singletone]
+
+. [scop: session]
+
+. [scop: request]
+
+[start=31]
+
+. [securitate]
+
+[start=41]
+
+. [sync/long running background tasks]
+
+[start=51]
+
+. [mai multe detalii despre formulare/validare/date etc]
+
+[start=61]
+. Instaleaza PostgreSQL (inclusiv pgAdmin).
+Verificare:: lanseaza pgAdmin, creeaza un server catre localhost pentru utilizatorul _postgres_ si parola _postgres_, ar trebui sa te poti conecta la server. 
 
 . [legatura Customer Address]
 
