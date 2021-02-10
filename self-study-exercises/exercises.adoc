@@ -74,10 +74,10 @@ Verificare::
 . Elaboreaza o aplicatie web simpla care utilizeaza Spring Boot.
 Sugestie:: 
 .. https://start.spring.io/, alege Java 8, iar din dependinte include _Spring Web_
-.. pentru a creea o clasa prin intermediul IDEA: clic dreapta pe nodul _src/mani/java/<careva pachet>_, alege menu:New[Java Class], introduce denumirea clasei si kbd:[Enter]
+.. pentru a creea o clasa prin intermediul IDEA: clic dreapta pe nodul _src/mani/java/<careva pachet>_ (in panoul _Project_), alege menu:New[Java Class], introduce denumirea clasei si kbd:[Enter]
 Verificare:: 
 Vom verifica succesului acestei sarcini prin analogie cu Apache HTTP Server; acesta afiseaza mesajul _It works!_ la accesarea http://localhost/ daca e instalat cu succes. 
-Asadar deschide proiectul generat in IDEA si in _Project_ tool window creeaza clasa `controller.HomeController` cu urmatorul continut:
+Asadar deschide proiectul generat in IDEA si in panoul _Project_ creeaza clasa `controller.HomeController` cu urmatorul continut:
 +
 [source,java]
 ----
@@ -127,7 +127,7 @@ ruleaza proiectul, apoi acceseaza http://localhost:8080/customers folosind navig
 [source,xml]
 ----
 <dependency>
-    <groupId>org.springframework.boot</groupId>
+	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
 ----
@@ -476,7 +476,7 @@ Verificare::
 Mai multe detalii pe pagina https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html. Daca punem valoarea `on-param` atunci aceste optiuni vor fi activate da in query string va fi prezent parametrul corespunzator:
 `errors`, `message` si `trace`. 
 
-. Aceasta pagina de eroare (_Whitelabel Error Page_) poate fi deactivata prin proprietatea `server.error.whitelabel.enabled=false` sau adaptata prin crearea propirului sablon _error.html_. Creeaza fisierul _error.html_ cu titlul _Error Page_ (`<h1>`):
+. Aceasta pagina de eroare (_Whitelabel Error Page_) poate fi deactivata prin proprietatea `server.error.whitelabel.enabled=false` sau adaptata prin crearea propriului sablon _error.html_. Creeaza fisierul _error.html_ cu titlul _Error Page_ (`<h1>`):
 +
 [source, html]
 ----
