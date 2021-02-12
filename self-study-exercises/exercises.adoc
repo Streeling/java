@@ -75,8 +75,8 @@ Verificare::
 Sugestie:: 
 .. https://start.spring.io/, alege Java 8, iar din dependinte include _Spring Web_
 .. pentru a creea o clasa prin intermediul IDEA: in panoul _Project_ din partea stanga clic dreapta pe nodul _src/mani/java/<careva pachet>_, alege menu:New[Java Class], introduce denumirea clasei si kbd:[Enter]
-Verificare:: 
-Vom verifica succesului acestei sarcini prin analogie cu Apache HTTP Server; acesta afiseaza mesajul _It works!_ la accesarea http://localhost/ daca e instalat cu succes. 
+Verificare::
+Vom verifica succesului acestei sarcini prin analogie cu Apache HTTP Server; acesta afiseaza mesajul _It works!_ la accesarea http://localhost/ daca e instalat cu succes.
 Asadar deschide proiectul generat in IDEA si (in panoul _Project_) creeaza clasa `controller.HomeController` cu urmatorul continut:
 +
 [source,java]
@@ -94,7 +94,7 @@ public class HomeController {
 ruleaza proiectul, apoi acceseaza http://localhost:8080/ folosind navigatorul web, presupun ca intuiesti care mesaj trebui sa fie afisat?
 
 . Creeaza clasa `Customer` cu trei atribute: `id` (tip `Integer`), `firstName` (tip `String`), `lastName` (tip `String`); pentru cele trei atribute, trebuie definite getter-e si setter-e.
-Sugestie:: pentru a genera getter-ele si setter-ele in IDEA, clic dreapta oriunde in codul sursa a clasei si alege menu:Generate...[Getter and Setter], in lista de atribute alege acelea pentru care vrei sa-ti fie generate getter-ele si setter-ele si btn:[OK]. 
+Sugestie:: pentru a genera getter-ele si setter-ele in IDEA, clic dreapta oriunde in codul sursa a clasei si alege menu:Generate...[Getter and Setter], in lista de atribute alege acelea pentru care vrei sa-ti fie generate getter-ele si setter-ele si btn:[OK].
 Verificare:: Creeaza urmatorul controller CustomerController
 +
 [source, java]
@@ -111,7 +111,7 @@ public class CustomerController {
 
     @GetMapping("/customers")
     public Customer customer() {
-        Customer customer = new Customer();  
+        Customer customer = new Customer();
         customer.setFirstName("Jack");
         customer.setLastName("Bauer");
 
@@ -152,12 +152,12 @@ Creeaza in dosarul _src/main/resources/templates_ fisierul _customer.html_ cu ur
 </html>
 ----
 +
-Iar in `CustomerController` inlocuieste adnotarea `@RestController` cu `@Controller`, la metoda `customer()` adauga in lista de parametri `Model model`, schimba tipul de intoarcere din `Customer` in `String`, inauntrul metodei, 
-in loc de `return customer;` vom returna valoarea `"customer"` (de fapt e numele fisierului _customer.html_ fara extensie) si in final inainte de a returna aceasta valoare vom pune variabila `customer` pe model 
+Iar in `CustomerController` inlocuieste adnotarea `@RestController` cu `@Controller`, la metoda `customer()` adauga in lista de parametri `Model model`, schimba tipul de intoarcere din `Customer` in `String`, inauntrul metodei,
+in loc de `return customer;` vom returna valoarea `"customer"` (de fapt e numele fisierului _customer.html_ fara extensie) si in final inainte de a returna aceasta valoare vom pune variabila `customer` pe model
 in felul urmator `model.addAttribute("customer", customer)`.
 
 Verificare:: acceseaza http://localhost:8080/customers folosind navigatorul web, ar trebui sa vezi o pagina HTML cu atributele obiectului `Customer` creat in controller.
-Sugestie:: In caz ca se va afisa mesajul de eroare _This application has no explicit mapping for /error, so you are seeing this as a fallback._ deschide menu:View[Tool Windows > Maven], 
+Sugestie:: In caz ca se va afisa mesajul de eroare _This application has no explicit mapping for /error, so you are seeing this as a fallback._ deschide menu:View[Tool Windows > Maven],
 in fereastra nou aparuta deschide nodul _Dependencies_ si verifica daca in lista de dependinte e prezenta _spring-boot-starte-thymeleaf_; in caz ca lipseste click pe _Reload All Maven Projects_.
 
 Intrebare:: In caz ca vom uita sa inlocuim adnotarea `@RestController` cu `@Controller`, atunci navigatorul va afisa doar cuvantul _customer_; de ce?
@@ -168,14 +168,14 @@ Intrebare:: In caz ca vom uita sa inlocuim adnotarea `@RestController` cu `@Cont
 ----
 public class CustomerController {
 
-	private Customer customer;
+    private Customer customer;
 
-	public CustomerController() {
-		customer = new Customer();
-		customer.setFirstName("Jack");
-		customer.setLastName("Bauer");
-	}
-	
+    public CustomerController() {
+        customer = new Customer();
+        customer.setFirstName("Jack");
+        customer.setLastName("Bauer");
+    }
+
 	/* ... */
 }
 ----
@@ -195,9 +195,9 @@ Adauga metoda care va fisa formularul
 ----
     @GetMapping("/customers/edit")
     public String customerForm(Model model) {
-		model.addAttribute("customer", customer);
+        model.addAttribute("customer", customer);
 
-		return "customer-form";
+        return "customer-form";
     }
 ----
 +
@@ -228,17 +228,17 @@ si creeaza fisierul _customer-form.html_
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-	<title>Getting Started: Handling Form Submission</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<h1>Form</h1>
-	<form action="#" th:action="@{/customers}" th:object="${customer}" method="post">
-		<p>Id: <input type="text" th:field="*{id}" /></p>
-		<p>First name: <input type="text" th:field="*{firstName}" /></p>
+    <form action="#" th:action="@{/customers}" th:object="${customer}" method="post">
+    	<p>Id: <input type="text" th:field="*{id}" /></p>
+        <p>First name: <input type="text" th:field="*{firstName}" /></p>
 		<p>Last name: <input type="text" th:field="*{lastName}" /></p>
-		<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-	</form>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
 </body>
 </html>
 ----
@@ -255,7 +255,7 @@ Intrebare:: 1. daca nu stergem First Name si sau Last Name. ce se va intampla; 2
 @Size(min=2, max=30)
 ----
 +
-In controler pe langa adnotarea `@ModelAttribute` adaugati si `@Valid` la parametrul `customer` in metoda `customerSubmit()`, tot la aceasta metoda adaugati parametrul `BindingResult bindingResult`, iar inauntrul metodei, 
+In controler pe langa adnotarea `@ModelAttribute` adaugati si `@Valid` la parametrul `customer` in metoda `customerSubmit()`, tot la aceasta metoda adaugati parametrul `BindingResult bindingResult`, iar inauntrul metodei,
 chiar la inceput pune verifcarea validitatii obiectului primit:
 +
 [source, java]
@@ -313,17 +313,17 @@ iar mai jost de constructor adauga metoda:
 +
 [source, java]
 ----
-private Customer findById(Integer id) { 
-	// aici itereaza prin toate elementele listei customers 
+private Customer findById(Integer id) {
+	// aici itereaza prin toate elementele listei customers
 	// si compara .getId() cu parametrul id
-	// in caz ca sunt egale intoarce acest element. 
+	// in caz ca sunt egale intoarce acest element.
 	// Daca nu s-au gasit elemente intoarce null.
 }
 ----
 +
-In metodele adnotate cu `@GetMapping("/customers")` si `@GetMapping("/customers/edit")` modifica adnotarile in `@GetMapping("/customers/{id}")` si `@GetMapping("/customers/edit/{id}")`, la lista de parametri adauga `@PathVariable(name = "id") Integer id`, 
-iar in corpurile acestor metode inlocuieste utilizarea variabilei `customer` cu `findById(id)`. In metoda `customerSubmit()` comenteaza liniile de code care sunt cu eroare. 
-Actualizeaza sabloanele html: in _customer.html_ inlocuieste `<a th:href="@{/customers/edit}">Edit</a>` cu `<a th:href="@{/customers/edit/{id}(id=${customer.id})}">Edit</a>`. In _customer-form.html_, 
+In metodele adnotate cu `@GetMapping("/customers")` si `@GetMapping("/customers/edit")` modifica adnotarile in `@GetMapping("/customers/{id}")` si `@GetMapping("/customers/edit/{id}")`, la lista de parametri adauga `@PathVariable(name = "id") Integer id`,
+iar in corpurile acestor metode inlocuieste utilizarea variabilei `customer` cu `findById(id)`. In metoda `customerSubmit()` comenteaza liniile de code care sunt cu eroare.
+Actualizeaza sabloanele html: in _customer.html_ inlocuieste `<a th:href="@{/customers/edit}">Edit</a>` cu `<a th:href="@{/customers/edit/{id}(id=${customer.id})}">Edit</a>`. In _customer-form.html_,
 la elementu-ul HTML de tip `input` care afiseaza id-ul adauga atributul `readonly`.
 
 Verificare:: ruleaza proiectul, apoi acceseaza http://localhost:8080/customer/1 folosind navigatorul web, ar trebui sa fie afisat customer-ul.
@@ -382,14 +382,14 @@ In fisierele _customer.html_ si _customer-form.html_ imediat sub elementul `<h1>
 
 Verificare:: ruleaza proiectul, apoi acceseaza http://localhost:8080/customers/ folosind navigatorul web, trebuie sa fie afisat un tabel cu un customer, iar din orice alta pagina un click pe _Back to customer list_ trebuie sa ne aduga la aceasta tabel.
 
-. Modifica metoda `customerSubmit()` astfel incat daca `customer` are id-ul diferit de `null`, atunci cu ajutorul metodei `findById()` acel customer este gasit in lista si atributele sale sunt actualizate (`firstName`, `lastName` si `email`, nu si `id`). 
+. Modifica metoda `customerSubmit()` astfel incat daca `customer` are id-ul diferit de `null`, atunci cu ajutorul metodei `findById()` acel customer este gasit in lista si atributele sale sunt actualizate (`firstName`, `lastName` si `email`, nu si `id`).
 In caz ca id-ul este `null`. Determina id-ul ultimului customer din lista, si seteaza-l ca `+1`. La final obiectul nou creat trebuie adaugat la lista `customers`, iar valoarea returnata schimba in:
 +
 [source, java]
 ----
 return "redirect:/customers/" + <newCustomer>.getId();
 ----
-+ 
++
 In fisierul _customer-list.html_ undeva sus, dupa `h1`, adauga:
 +
 [source, html]
@@ -397,7 +397,7 @@ In fisierul _customer-list.html_ undeva sus, dupa `h1`, adauga:
     <div>
         <a th:href="@{/customers/add}">Add customer</a>
     </div>
----- 
+----
 +
 Ia in controler sub `customerSubmit()`:
 +
@@ -405,14 +405,14 @@ Ia in controler sub `customerSubmit()`:
 ----
     @GetMapping("/customers/add")
     public String customerAdd(Model model) {
-		model.addAttribute("customer", new Customer());
-		return "customer-form";
+	    model.addAttribute("customer", new Customer());
+        return "customer-form";
     }
 ----
 
 Verificare:: acceseaza http://localhost:8080/customers/, click pe _Add customer_, completeaza formularul, dupa click pe _Submit_, ar trebui sa vezi customer-ul nou creat; click pe _Back to customer list_ si in table ar trebuie sa vezi doi customer-i.
 
-. Ai observat ca in ambele cazuri: fie modificam un customer fi il cream, titlul paginii e acelasi _Form_. Pentru a face titlul dinamic ne vom folosi de aceeasi conditie: `id` este sau nu `null`. 
+. Ai observat ca in ambele cazuri: fie modificam un customer fi il cream, titlul paginii e acelasi _Form_. Pentru a face titlul dinamic ne vom folosi de aceeasi conditie: `id` este sau nu `null`.
 Dupa cum ai observat formulele dinamice le scriem in atribute prefixate cu `th:`. Asa vom face si aici (_customer-form.html_):
 +
 [source, html]
@@ -420,7 +420,7 @@ Dupa cum ai observat formulele dinamice le scriem in atribute prefixate cu `th:`
 <h1 th:text="${customer.id == null} ? 'Create a customer' : 'Edit a customer:'" />
 ----
 
-Verificare:: editeaza un customer, titlul trebuie sa inceapa cu _Edit ..._, iar la creare - cu _Create ..._. 
+Verificare:: editeaza un customer, titlul trebuie sa inceapa cu _Edit ..._, iar la creare - cu _Create ..._.
 
 . Creeaza clasa
 +
@@ -467,14 +467,14 @@ Verificare:: acceseaza http://localhost:8081/customers/2, trebuie sa fie afisata
 
 . Implementeaza tratarea erorilor prin exceptii (`ResourceNotFoundException`) in toate metodele unde este utilizata metods `findById()`.
 
-Verificare:: 
+Verificare::
 +
-.. acceseaza http://localhost:8080/customers/edit/2, ar trebui sa vezi pagina de eroare. 
-.. acceseaza http://localhost:8080/customers/edit/1, pune break point pe prima linie din metoda `customerSubmit()`, kbd:[Alt+Shift+F8], apeleazea `setId(2)` pentru primul element din lista `customers`, apoi kbd:[F9], ar trebui sa vezi pagina de eroare. 
+.. acceseaza http://localhost:8080/customers/edit/2, ar trebui sa vezi pagina de eroare.
+.. acceseaza http://localhost:8080/customers/edit/1, pune break point pe prima linie din metoda `customerSubmit()`, kbd:[Alt+Shift+F8], apeleazea `setId(2)` pentru primul element din lista `customers`, apoi kbd:[F9], ar trebui sa vezi pagina de eroare.
 
-. In pagina de eroare putem include mai multe detalii `server.error.include-binding-errors` (`never`, `always`, `on-param`), `server.error.include-exception` (`false`, `true`), `server.error.include-message` (`never`, `always`, `on-param`) si `server.error.include-stacktrace` (`never`, `always`, `on-param`). 
+. In pagina de eroare putem include mai multe detalii `server.error.include-binding-errors` (`never`, `always`, `on-param`), `server.error.include-exception` (`false`, `true`), `server.error.include-message` (`never`, `always`, `on-param`) si `server.error.include-stacktrace` (`never`, `always`, `on-param`).
 Mai multe detalii pe pagina https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html. Daca punem valoarea `on-param` atunci aceste optiuni vor fi activate da in query string va fi prezent parametrul corespunzator:
-`errors`, `message` si `trace`. 
+`errors`, `message` si `trace`.
 
 . Aceasta pagina de eroare (_Whitelabel Error Page_) poate fi deactivata prin proprietatea `server.error.whitelabel.enabled=false` sau adaptata prin crearea propriului sablon _error.html_. Creeaza fisierul _error.html_ cu titlul _Error Page_ (`<h1>`):
 +
@@ -485,13 +485,13 @@ Mai multe detalii pe pagina https://docs.spring.io/spring-boot/docs/current/refe
 	<!-- ... -->
 	<div>
 		<p>Something went wrong or the page does not exist anymore...</p>
-		<table>
-			<tr>
-				<td>Timestamp:</td>
-				<td th:text="${timestamp}"></td>
+        <table>
+            <tr>
+                <td>Timestamp:</td>
+                <td th:text="${timestamp}"></td>
 				<!-- ... -->
-			</tr>
-		</table>
+            </tr>
+        </table>
 	</div>
 </body>
 <!-- ... -->
@@ -503,22 +503,22 @@ Verificare:: acceseaza http://localhost:8080/customers/edit/2, ar trebui sa vezi
 
 . [Pentru ca nu e recomandad ca aplicatia sa afiseze prea multe detalii despre eroare atunci cand aplicatia ruleaza in productie, le vom limita in dependenta de mediul aplicatiei.]
 
-. Creeaza clasa `CustomerRepository` si adnoteaza-o cu `@Component`. Muta in ea tot codul din controler care tine de crearea si accesarea customer-ilor, cu alte cuvinte: atributul `customers`, initializarea acestuia din controler 
+. Creeaza clasa `CustomerRepository` si adnoteaza-o cu `@Component`. Muta in ea tot codul din controler care tine de crearea si accesarea customer-ilor, cu alte cuvinte: atributul `customers`, initializarea acestuia din controler
 (cu redenumirea constructorului) si metoda `findById()` (doar corpul metodei).
-Codul care adauga/actualizeaza un customer va fi implementat intr-o metoda nou: `Customer save(Customer customer)`, aceasta metoda va verifica atributul `id` de la parametrul `customer` pentru a decide daca e un obiect nou sau existent. 
+Codul care adauga/actualizeaza un customer va fi implementat intr-o metoda nou: `Customer save(Customer customer)`, aceasta metoda va verifica atributul `id` de la parametrul `customer` pentru a decide daca e un obiect nou sau existent.
 Toate metodele din `CustomerRepository` vor avea visibilitatea `public`. Referirea acestuia in controler se va face gratie codului:
 +
 [source, java]
 ----
 	private CustomerRepository customerRepository;
-	
+
 	public CustomerController(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
 	}
 ----
 +
-In contextul framework-ului acest procedeu (declararea dependintelor in constructor) se numeste _injectarea dependintelor prin constructor_ 
-(cu alte cuvinte Spring va lua asupra s-a crearea obiectului de tip `CustomerRepository` si-l va injecta ca parametru la constructorul controlerului, atunci cand se va construi insusi controlerul). 
+In contextul framework-ului acest procedeu (declararea dependintelor in constructor) se numeste _injectarea dependintelor prin constructor_
+(cu alte cuvinte Spring va lua asupra s-a crearea obiectului de tip `CustomerRepository` si-l va injecta ca parametru la constructorul controlerului, atunci cand se va construi insusi controlerul).
 Corespunzator `CustomerRepository` este  o _dependinta_ pentru `CustomerController` deoarece controlerul foloseste metode ale acestei clase (depinde de functionalul acesteia).
 
 . In `CustomerRepository` adauga metoda:
@@ -547,15 +547,20 @@ Injecteaza `MovieLister` in `MovieController`, iar in `MovieController` definest
 
 Verificare:: acceseaza http://localhost:8080/movies, ar trebuie sa vezi reprezentarea JSON a textului _A list of movies_.
 
-.  
+. Redenumeste `MovieLister` in `ImdbMovieLister`, iar in string-ul `"A list of movies"` in `"A list of movies from IMDb"`.
+Creeaza interfata (`interface`) `MovieLister` cu o singura metoda `String list()`. Intoarce-te la `ImdbMovieLister` si modifica-l declarand ca extinde `MovieLister`,
+iar deasupra la metoda `list` pune adnotarea `@Override`.
+Analog cu `ImdbMovieLister` creeaza serviciul `RottenTomatoesMovieLister`, care va intoarce mesajul `"A list of movies from Rotten Tomatoes"`.
+Daca vei rula aplicatia, vei avea eroare de la spring. Am putea folosi adnotarea `@Primary` pe unul din serviciuri.
+Pune pe oricare din ele astfel incar
 
+Verificare:: la accesarea http://localhost:8080/movies sa se afiseze _A list of movies from Rotten Tomatoes_.
 
+. Adnotarea `@Service` are parametrul name, pentru aindica numele bean-ului. Dar implicit numele bean-ului e generat din numele clasei folsoind camel case.
+Cu alte cuvinte pentru clasa `WikipediaMovieLister` numele va fi `wikipediaMovieLister`. Pentru a indica numele bean-urlui de care avem nevoie,
+in constructor inaintea parametrilui se pune adnotarea `@Qualifier("<numele bean-ului>")`. Injecteaza bean-ul IMDb folosind `@Qualifier`.
 
-care ar reprezenta URL-ul paginii informative a unui film (Wikipedia, IMDb, Rotten Tomatoes, КиноПоиск etc)
-
-. [Injectare dupa id/nume/tip] ImdbMovieFinder , WikipediaMovieFinder etc
-
-. [Erori daca nu e gasit ceva pentru injectare]
+. [Altfel de injectare, prin @Bean]
 
 . [Injectare de proprietati din .properties]
 
@@ -595,7 +600,56 @@ care ar reprezenta URL-ul paginii informative a unui film (Wikipedia, IMDb, Rott
 
 [start=61]
 . Instaleaza PostgreSQL (inclusiv pgAdmin).
-Verificare:: lanseaza pgAdmin, creeaza un server catre localhost pentru utilizatorul _postgres_ si parola _postgres_, ar trebui sa te poti conecta la server. 
+Verificare:: lanseaza pgAdmin, ar trebui sa te poti conecta la serverul existent (sub nodul _Servers_ din panoul din stanga)
+folosind parola setata in timpul instalarii pentru utilizatorul _postgres_.
+
+. Folosind pdAdmin creeaza o baza de date. In cadrul acestei baze de date creeaza tabelul _customers_ cu coloanele: _id_, _first_name_, _last_name_ si _email_:
++
+[source, sql]
+----
+CREATE TABLE customers (
+	id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	first_name text NOT NULL,
+	last_name text NOT NULL,
+	email text NOT NULL
+);
+----
++
+Verificare:: in pgAdmin urmatoarea comanda SQL trebuie sa se execute fara erori:
++
+[source, sql]
+----
+INSERT INTO customers (first_name, last_name, email) VALUES ('Jack', 'Bauer', 'jbauer@example.com');
+----
+
+. Elaboreaza o aplicatie web simpla care utilizeaza Spring Boot si are incluse dependintele pentru conexiunea la baza de date.
+In fisierul _resources/application.properties_ adauga proprietatile:
++
+[sourse, properties]
+----
+spring.datasource.url= jdbc:postgresql://localhost:5432/<numele bazei de date>
+spring.datasource.username=postgres
+spring.datasource.password=<parola utilizatorului postgres>
+----
++
+Adauga dependinta Maven `org.postgresql:postgresql:42.2.18`.
+
+Sugestie:: https://start.spring.io/, alege Java 8, iar din dependinte include _Spring Web_ si _Spring Data JPA_
+
+Verificare:: porneste proiectul, acesta trebuie sa porneasca fara erori.
+
+. Creeaza clasa `Customer` cu campurile: `id`, `firstName`, `lastName` si `email`. Adnoteaza clasa cu `@Entity` si `@Table(name = "customers")`.
+Pe campul `id` pune adnotarile `@Id` si `@GeneratedValue(strategy=GenerationType.AUTO)`. Pe campul `firstName` adnotarea `@Column(name = "first_name")`.
+Analog campurile ramase trebui adnotate cu `@Column(name = "<denumirea coloanei in tabel>")`.
+Creeaza interfata `CustomerRepository` care va extinde `CrudRepository<Customer, Integer>` si adauga o singura linie de cod:
++
+[source, java]
+----
+List<Customer> findAll();
+----
+
+Verificare:: creeaza rest controlerul `CustomerController`, injecteaza `CustomerRepository`, creeaza o metoda mapata la adresa _/customers/_
+care apeleaza `findAll()` si intoarce rezultatul; porneste proiectul si acceseaza http://localhost:8080/customers/
 
 . [legatura Customer Address]
 
