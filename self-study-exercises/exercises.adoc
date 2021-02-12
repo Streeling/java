@@ -74,10 +74,10 @@ Verificare::
 . Elaboreaza o aplicatie web simpla care utilizeaza Spring Boot.
 Sugestie:: 
 .. https://start.spring.io/, alege Java 8, iar din dependinte include _Spring Web_
-.. pentru a creea o clasa prin intermediul IDEA: clic dreapta pe nodul _src/mani/java/<careva pachet>_ (in panoul _Project_), alege menu:New[Java Class], introduce denumirea clasei si kbd:[Enter]
+.. pentru a creea o clasa prin intermediul IDEA: in panoul _Project_ din partea stanga clic dreapta pe nodul _src/mani/java/<careva pachet>_, alege menu:New[Java Class], introduce denumirea clasei si kbd:[Enter]
 Verificare:: 
 Vom verifica succesului acestei sarcini prin analogie cu Apache HTTP Server; acesta afiseaza mesajul _It works!_ la accesarea http://localhost/ daca e instalat cu succes. 
-Asadar deschide proiectul generat in IDEA si in panoul _Project_ creeaza clasa `controller.HomeController` cu urmatorul continut:
+Asadar deschide proiectul generat in IDEA si (in panoul _Project_) creeaza clasa `controller.HomeController` cu urmatorul continut:
 +
 [source,java]
 ----
@@ -168,13 +168,13 @@ Intrebare:: In caz ca vom uita sa inlocuim adnotarea `@RestController` cu `@Cont
 ----
 public class CustomerController {
 
-    private Customer customer;
+	private Customer customer;
 
-    public CustomerController() {
-        customer = new Customer();
-        customer.setFirstName("Jack");
-        customer.setLastName("Bauer");
-    }
+	public CustomerController() {
+		customer = new Customer();
+		customer.setFirstName("Jack");
+		customer.setLastName("Bauer");
+	}
 	
 	/* ... */
 }
@@ -195,9 +195,9 @@ Adauga metoda care va fisa formularul
 ----
     @GetMapping("/customers/edit")
     public String customerForm(Model model) {
-        model.addAttribute("customer", customer);
+		model.addAttribute("customer", customer);
 
-        return "customer-form";
+		return "customer-form";
     }
 ----
 +
@@ -228,17 +228,17 @@ si creeaza fisierul _customer-form.html_
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Getting Started: Handling Form Submission</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<h1>Form</h1>
-    <form action="#" th:action="@{/customers}" th:object="${customer}" method="post">
-    	<p>Id: <input type="text" th:field="*{id}" /></p>
-        <p>First name: <input type="text" th:field="*{firstName}" /></p>
+	<form action="#" th:action="@{/customers}" th:object="${customer}" method="post">
+		<p>Id: <input type="text" th:field="*{id}" /></p>
+		<p>First name: <input type="text" th:field="*{firstName}" /></p>
 		<p>Last name: <input type="text" th:field="*{lastName}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+		<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+	</form>
 </body>
 </html>
 ----
@@ -405,8 +405,8 @@ Ia in controler sub `customerSubmit()`:
 ----
     @GetMapping("/customers/add")
     public String customerAdd(Model model) {
-	    model.addAttribute("customer", new Customer());
-        return "customer-form";
+		model.addAttribute("customer", new Customer());
+		return "customer-form";
     }
 ----
 
@@ -485,13 +485,13 @@ Mai multe detalii pe pagina https://docs.spring.io/spring-boot/docs/current/refe
 	<!-- ... -->
 	<div>
 		<p>Something went wrong or the page does not exist anymore...</p>
-        <table>
-            <tr>
-                <td>Timestamp:</td>
-                <td th:text="${timestamp}"></td>
+		<table>
+			<tr>
+				<td>Timestamp:</td>
+				<td th:text="${timestamp}"></td>
 				<!-- ... -->
-            </tr>
-        </table>
+			</tr>
+		</table>
 	</div>
 </body>
 <!-- ... -->
@@ -547,7 +547,11 @@ Injecteaza `MovieLister` in `MovieController`, iar in `MovieController` definest
 
 Verificare:: acceseaza http://localhost:8080/movies, ar trebuie sa vezi reprezentarea JSON a textului _A list of movies_.
 
-.  care ar reprezenta URL-ul paginii informative a unui film (Wikipedia, IMDb, Rotten Tomatoes, КиноПоиск etc)
+.  
+
+
+
+care ar reprezenta URL-ul paginii informative a unui film (Wikipedia, IMDb, Rotten Tomatoes, КиноПоиск etc)
 
 . [Injectare dupa id/nume/tip] ImdbMovieFinder , WikipediaMovieFinder etc
 
