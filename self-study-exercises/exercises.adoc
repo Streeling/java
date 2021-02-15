@@ -234,10 +234,10 @@ si creeaza fisierul _customer-form.html_
 <body>
 	<h1>Form</h1>
     <form action="#" th:action="@{/customers}" th:object="${customer}" method="post">
-    	<p>Id: <input type="text" th:field="*{id}" /></p>
-        <p>First name: <input type="text" th:field="*{firstName}" /></p>
+		<p>Id: <input type="text" th:field="*{id}" /></p>
+		<p>First name: <input type="text" th:field="*{firstName}" /></p>
 		<p>Last name: <input type="text" th:field="*{lastName}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+		<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
 </html>
@@ -261,7 +261,7 @@ chiar la inceput pune verifcarea validitatii obiectului primit:
 [source, java]
 ----
 if (bindingResult.hasErrors()) {
-	return "customer-form";
+    return "customer-form";
 }
 ----
 +
