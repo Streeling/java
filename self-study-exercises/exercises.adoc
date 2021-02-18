@@ -23,6 +23,7 @@ daca n-ai comis erori in timpul rezolvarii, atunci solutia la care ai ajuns e ce
 Cand incerc ceva si ajungi la final fara greseli eu nu-s sigur ca ai ajuns fara erori de intelegere (ele pot fi depistate la evaluare); cand gresesc acest lucru demosntreaza ca sunt prezente erori de intelegere si 
 incercand sa trec de greseala rezolv eroarea de intelegere.
 . Sarcinile au forma imperativa si folosesc adresarea „Tu” in loc de „Dvs.” pentru a ne putea concentra la ceea ce e mai important nemijlocit.
+. In unele sarcini intentionat au fost introduse erori.
 
 == Sarcini de lucru
 
@@ -232,7 +233,7 @@ si creeaza fisierul _customer-form.html_
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Form</h1>
+    <h1>Form</h1>
     <form action="#" th:action="@{/customers}" th:object="${customer}" method="post">
 		<p>Id: <input type="text" th:field="*{id}" /></p>
 		<p>First name: <input type="text" th:field="*{firstName}" /></p>
@@ -289,6 +290,35 @@ Optional in acest fisier, in `<head>...</head>` putem punce stilurile:
 ----
 
 Verificare:: acceseaza http://localhost:8081/customers, apasa pe link-ul _Edit_, modifica careva valori, dar numaidecat lasa gol unul din campurile _First name_ sau _Last name_ in formular si _Submit_.
+
+Sugestie:: in https://docs.spring.io/spring-framework/docs/current/reference/html/web.html[documentatia Spring] este
+mentionat faptul ca parametrul de tip `BindingResult` trebuie sa fie declarat imediat dupa parametrul care are
+adnotarea `@Validate`:
++
+[quote]
+____
+You must declare an Errors, or BindingResult argument immediately after the validated method argument.
+____
++
+cu alte cuvinte, pentru o astfel de signatura:
++
+[source, java]
+----
+@PostMapping("update")
+public String update(@Valid @ModelAttribute AccountForm form, BindingResult result) {
+    // ...
+}
+----
++
+va functiona, pe cand asa o signatura nu:
++
+[source, java]
+----
+@PostMapping("update")
+public String update(@Valid @ModelAttribute AccountForm form, Model model, BindingResult result) {
+    // ...
+}
+----
 
 . Adauga proprietatea `email` de tip `String` pe clasa `Customer`. Proprietatea trebuie sa fie editabila de utilizator.
 +
@@ -501,7 +531,11 @@ si completeaza tabelul cu inca 6 randuri pentru urmatoare atribute de pe model: 
 
 Verificare:: acceseaza http://localhost:8080/customers/edit/2, ar trebui sa vezi pagina de eroare cu toate amanuntele despre eroare.
 
-. [Pentru ca nu e recomandad ca aplicatia sa afiseze prea multe detalii despre eroare atunci cand aplicatia ruleaza in productie, le vom limita in dependenta de mediul aplicatiei.]
+. Proprietatile standard care pot fi utilizate in fisierul _application.properties_ le puteti gasi in https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html[Common Application properties]
+De exemplu veti gasi o proprietate prin intermediul careia putem controla portul la care va asculta serverul de aplicatii.
+Schimba portul, din 8080 in 8081.
+
+Verificare:: Acceseaza http://localhost:8081/customers, ar trebui sa vezi lista customer-ilor.
 
 . Creeaza clasa `CustomerRepository` si adnoteaza-o cu `@Component`. Muta in ea tot codul din controler care tine de crearea si accesarea customer-ilor, cu alte cuvinte: atributul `customers`, initializarea acestuia din controler
 (cu redenumirea constructorului) si metoda `findById()` (doar corpul metodei).
