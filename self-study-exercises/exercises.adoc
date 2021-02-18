@@ -522,7 +522,7 @@ Mai multe detalii pe pagina https://docs.spring.io/spring-boot/docs/current/refe
 				<!-- ... -->
             </tr>
         </table>
-	</div>
+    </div>
 </body>
 <!-- ... -->
 ----
