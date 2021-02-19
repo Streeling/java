@@ -128,8 +128,8 @@ ruleaza proiectul, apoi acceseaza http://localhost:8080/customers folosind navig
 [source,xml]
 ----
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
 ----
 +
@@ -235,10 +235,10 @@ si creeaza fisierul _customer-form.html_
 <body>
     <h1>Form</h1>
     <form action="#" th:action="@{/customers}" th:object="${customer}" method="post">
-		<p>Id: <input type="text" th:field="*{id}" /></p>
-		<p>First name: <input type="text" th:field="*{firstName}" /></p>
-		<p>Last name: <input type="text" th:field="*{lastName}" /></p>
-		<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p>Id: <input type="text" th:field="*{id}" /></p>
+        <p>First name: <input type="text" th:field="*{firstName}" /></p>
+        <p>Last name: <input type="text" th:field="*{lastName}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
 </html>
@@ -344,10 +344,10 @@ iar mai jost de constructor adauga metoda:
 [source, java]
 ----
 private Customer findById(Integer id) {
-	// aici itereaza prin toate elementele listei customers
-	// si compara .getId() cu parametrul id
-	// in caz ca sunt egale intoarce acest element.
-	// Daca nu s-au gasit elemente intoarce null.
+    // aici itereaza prin toate elementele listei customers
+    // si compara .getId() cu parametrul id
+    // in caz ca sunt egale intoarce acest element.
+    // Daca nu s-au gasit elemente intoarce null.
 }
 ----
 +
@@ -435,7 +435,7 @@ Ia in controler sub `customerSubmit()`:
 ----
     @GetMapping("/customers/add")
     public String customerAdd(Model model) {
-	    model.addAttribute("customer", new Customer());
+        model.addAttribute("customer", new Customer());
         return "customer-form";
     }
 ----
@@ -458,7 +458,7 @@ Verificare:: editeaza un customer, titlul trebuie sa inceapa cu _Edit ..._, iar 
 ----
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException {
-	public ResourceNotFoundException() {
+    public ResourceNotFoundException() {
         super();
     }
 
@@ -512,14 +512,14 @@ Mai multe detalii pe pagina https://docs.spring.io/spring-boot/docs/current/refe
 ----
 <!-- ... -->
 <body>
-	<!-- ... -->
-	<div>
-		<p>Something went wrong or the page does not exist anymore...</p>
+    <!-- ... -->
+    <div>
+        <p>Something went wrong or the page does not exist anymore...</p>
         <table>
             <tr>
                 <td>Timestamp:</td>
                 <td th:text="${timestamp}"></td>
-				<!-- ... -->
+                <!-- ... -->
             </tr>
         </table>
     </div>
@@ -544,11 +544,11 @@ Toate metodele din `CustomerRepository` vor avea visibilitatea `public`. Referir
 +
 [source, java]
 ----
-	private CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
-	public CustomerController(CustomerRepository customerRepository) {
-		this.customerRepository = customerRepository;
-	}
+    public CustomerController(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 ----
 +
 In contextul framework-ului acest procedeu (declararea dependintelor in constructor) se numeste _injectarea dependintelor prin constructor_
@@ -568,13 +568,32 @@ aceasta metoda va returna lista de customeri pentru care cel putin `firstName`, 
 ----
 @GetMapping("/customers/search")
 public String search(@RequestParam("q") String query) {
-	List<Customer> customers = customerRepsitory.findByAllFields(q);
-	return "search";
+    List<Customer> customers = customerRepsitory.findByAllFields(q);
+    return "search";
 }
 ----
 +
 Creeaza fisierul _search.html_, care va contine 2 parti: prima un formular de cautare, iar mai jost rezultatul cautarii.
 
+. In `CustomerRepository` clic pe denumirea clasei, kbd:[Alt+Enter] si alege _Create Test_.
+In ferestra _Create Test_ bifeaza _setUp/@Before_ si alege `findById(id:Integer):Customer` din lista, apoi btn:[OK].
+In clasa `CustomerRepositoryTest` (generata automat de IDEA) definit campul `repository` (`CustomerRepository`) cu
+visibilitatea `private`. Iar in metoda adnotata cu `@BeforeEach` initializati acest camp. Redenumeste metoda `findById`
+in `findById_afterConstruction` si:
++
+[source, java]
+----
+    @Test
+    void findById_afterConstruction() {
+        Customer customer = repository.findById(1);
+        assertNotNull(customer);
+    }
+----
++
+Ruleaza testul apasand pe iconitea verde in forma de simbolul _play_ din partea stanga a metodei `findById_afterConstruction()`.
+
+
+////
 . Intr-un proiect Spring Boot creeaza controller-ul `MovieController` si clasa `MovieLister`. Adnoteaza controlerul cu `@RestController`, iar `MovieLister` cu `@Service` (e un caz particular al adnotarii `@Component`).
 In `MovieLister` defineste metoda `list()`, aceasta metoda trebuie sa fie publica si sa intoarca un `String`, de exemplu `"A list of movies"`.
 Injecteaza `MovieLister` in `MovieController`, iar in `MovieController` defineste o metoda care va fi mapata la adresa "/movies/"  si va intoarce raspunsul de la serviciul `MovieLister`.
@@ -688,3 +707,4 @@ care apeleaza `findAll()` si intoarce rezultatul; porneste proiectul si acceseaz
 . [legatura Customer Address]
 
 . [CRUD Address]
+////
