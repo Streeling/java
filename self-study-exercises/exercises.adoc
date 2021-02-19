@@ -600,6 +600,38 @@ https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupite
 Verificare:: In constructorul clasei `CustomerRepository` modifica id-ul customerului folosit pentru intializarea
 listei de customeri, nu conteaza valoarea, important e sa nu fie 1, apoi fa build la proiect; buildul trebuie sa pice.
 
+. Adauga in metoda `findById_afterConstruction()` asertiunea care testeaza daca numarul de customeri este exact unu imediat dupa construirea obiectului `CustomerRepository`.
+
+Sugestie:: `findAll()` intoarce o lista care are metoda `size()`, iar asertiunea ar fi `assertEquals`.
+
+. Adauga un test pentru metoda `save()` in felul urmator: creeaza un obiect de tip Customer cu id-ul 1, iar pentru
+celealte campuri alege valori dupa dorinta, epeleaza metoda `sava()` cu acest obiect, apoi apeleaza `findById(1)` si
+adauga cate o asertiune pentru fiecare camp:
++
+[source, java]
+----
+    assertEquals(1, customer.getId());
+    assertEquals("/*...*/", customer.getFistName());
+    /* ... */
+----
+
+. Adauga un test pentru metoda `save()` in felul urmator: creeaza un obiect de tip Customer cu id-ul `null`, iar pentru
+celealte campuri alege valori dupa dorinta, epeleaza metoda `sava()` cu acest obiect, apoi apeleaza `findById(customer.getId())` si
+adauga cate o asertiune pentru fiecare camp:
++
+[source, java]
+----
+    assertEquals(1, customer.getId());
+    assertEquals("/*...*/", customer.getFistName());
+    /* ... */
+----
+
+. Scrie un test pentru metoda `save` care verifica modul in care este generata valoarea `id`.
+
+. Scrie un test pentru `findByAllFields()`.
+
+. Scrie alt test pentru `findByAllFields()`.
+
 ////
 . Intr-un proiect Spring Boot creeaza controller-ul `MovieController` si clasa `MovieLister`. Adnoteaza controlerul cu `@RestController`, iar `MovieLister` cu `@Service` (e un caz particular al adnotarii `@Component`).
 In `MovieLister` defineste metoda `list()`, aceasta metoda trebuie sa fie publica si sa intoarca un `String`, de exemplu `"A list of movies"`.
