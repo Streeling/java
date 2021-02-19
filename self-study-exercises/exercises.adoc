@@ -591,7 +591,14 @@ in `findById_afterConstruction` si:
 ----
 +
 Ruleaza testul apasand pe iconitea verde in forma de simbolul _play_ din partea stanga a metodei `findById_afterConstruction()`.
+Aceasta metoda este un test (unitar).
+Menirea testelor este de ane asigura ca codul scris se va comporta intr-un fel anume si nu altfel.
+Asteptarile noastre refritoare la cod sunt exprimate prin asertiuni (asserts).
+Intrucat in Spring Boot este folosita biblioteca JUnit 5 putem opera nemijlocit (out of the box) cu urmatoarele asertiuni:
+https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html[Class Assertions]
 
+Verificare:: In constructorul clasei `CustomerRepository` modifica id-ul customerului folosit pentru intializarea
+listei de customeri, nu conteaza valoarea, important e sa nu fie 1, apoi fa build la proiect; buildul trebuie sa pice.
 
 ////
 . Intr-un proiect Spring Boot creeaza controller-ul `MovieController` si clasa `MovieLister`. Adnoteaza controlerul cu `@RestController`, iar `MovieLister` cu `@Service` (e un caz particular al adnotarii `@Component`).
