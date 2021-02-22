@@ -577,8 +577,8 @@ Creeaza fisierul _search.html_, care va contine 2 parti: prima un formular de ca
 
 . In `CustomerRepository` clic pe denumirea clasei, kbd:[Alt+Enter] si alege _Create Test_.
 In ferestra _Create Test_ bifeaza _setUp/@Before_ si alege `findById(id:Integer):Customer` din lista, apoi btn:[OK].
-In clasa `CustomerRepositoryTest` (generata automat de IDEA) definit campul `repository` (`CustomerRepository`) cu
-visibilitatea `private`. Iar in metoda adnotata cu `@BeforeEach` initializati acest camp. Redenumeste metoda `findById`
+In clasa `CustomerRepositoryTest` (generata automat de IDEA) defineste campul `repository` (`CustomerRepository`) cu
+visibilitatea `private`. Iar in metoda adnotata cu `@BeforeEach` initializeaza acest camp. Redenumeste metoda `findById`
 in `findById_afterConstruction` si:
 +
 [source, java]
@@ -605,7 +605,7 @@ listei de customeri, nu conteaza valoarea, important e sa nu fie 1, apoi fa buil
 Sugestie:: `findAll()` intoarce o lista care are metoda `size()`, iar asertiunea ar fi `assertEquals`.
 
 . Adauga un test pentru metoda `save()` in felul urmator: creeaza un obiect de tip Customer cu id-ul 1, iar pentru
-celealte campuri alege valori dupa dorinta, epeleaza metoda `sava()` cu acest obiect, apoi apeleaza `findById(1)` si
+celealte campuri alege valori dupa dorinta, apeleaza metoda `sava()` cu acest obiect, apoi apeleaza `findById(1)` si
 adauga cate o asertiune pentru fiecare camp:
 +
 [source, java]
@@ -616,7 +616,8 @@ adauga cate o asertiune pentru fiecare camp:
 ----
 
 . Adauga un test pentru metoda `save()` in felul urmator: creeaza un obiect de tip Customer cu id-ul `null`, iar pentru
-celealte campuri alege valori dupa dorinta, epeleaza metoda `sava()` cu acest obiect, apoi apeleaza `findById(customer.getId())` si
+celealte campuri alege valori dupa dorinta, apeleaza metoda `save()` cu acest obiect, stocheaza rezultatul apelului la metoda intr-o variabila,
+de exemplu `savedCustomer`, apeleaza `findById(savedCustomer.getId())` si
 adauga cate o asertiune pentru fiecare camp:
 +
 [source, java]
@@ -626,11 +627,51 @@ adauga cate o asertiune pentru fiecare camp:
     /* ... */
 ----
 
-. Scrie un test pentru metoda `save` care verifica modul in care este generata valoarea `id`.
+. Adauga un test pentru metoda `save` care verifica modul in care este generata valoarea `id`.
 
-. Scrie un test pentru `findByAllFields()`.
+. Adauga un test pentru `findByAllFields()` care ar verifica daca are loc cautarea dupa `firstName`.
 
-. Scrie alt test pentru `findByAllFields()`.
+. Adauga alt test pentru `findByAllFields()` care ar verifica daca are loc cautarea dupa `lastName`.
+
+. Adauga alt test pentru `findByAllFields()` care ar verifica daca are loc cautarea dupa `email`.
+
+. Creeaza clasa cu teste pentru `HomeController`. Adnoteaza clasa cu `@SpringBootTest` si `@AutoConfigureMockMvc`. Adauga campul privat
++
+[source, java]
+----
+@Autowired
+private MockMvc mockMvc;
+----
++
+si metoda
++
+[source, java]
+----
+@Test
+public void home() throws Exception {
+    mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
+	    .andExpect(content().string(containsString("It works!")));
+}
+----
+
+Verificare:: ruleaza testul.
+
+. Creeaza clasa cu teste pentru `CustomerController`, adnoteaza cu `@SpringBootTest` si `@AutoConfigureMockMvc`. Adauga campul privat
++
+[source, java]
+----
+@Autowired
+private MockMvc mockMvc;
+----
++
+iar in metoda test apeleaza: `mockMvc.perform(post("/customers")).andDo(print()).andExpect(status().isOk())`. Verifica prin `customerRepository` daca
+a fost actualizat customer.
+
+. Adauga test pentru operatia de creare.
+
+. Adauga un test pentru operatia de citire a unui customer cu id inexistent.
+
+. Adauga un test pentru oepratia de actualizarea a unui customer cu id inexistent.
 
 ////
 . Intr-un proiect Spring Boot creeaza controller-ul `MovieController` si clasa `MovieLister`. Adnoteaza controlerul cu `@RestController`, iar `MovieLister` cu `@Service` (e un caz particular al adnotarii `@Component`).
