@@ -575,7 +575,7 @@ public String search(@RequestParam("q") String query) {
 +
 Creeaza fisierul _search.html_, care va contine 2 parti: prima un formular de cautare, iar mai jost rezultatul cautarii.
 
-. In `CustomerRepository` clic pe denumirea clasei, kbd:[Alt+Enter] si alege _Create Test_.
+. *Teste unitare* In `CustomerRepository` clic pe denumirea clasei, kbd:[Alt+Enter] si alege _Create Test_.
 In ferestra _Create Test_ bifeaza _setUp/@Before_ si alege `findById(id:Integer):Customer` din lista, apoi btn:[OK].
 In clasa `CustomerRepositoryTest` (generata automat de IDEA) defineste campul `repository` (`CustomerRepository`) cu
 visibilitatea `private`. Iar in metoda adnotata cu `@BeforeEach` initializeaza acest camp. Redenumeste metoda `findById`
@@ -635,7 +635,7 @@ adauga cate o asertiune pentru fiecare camp:
 
 . Adauga alt test pentru `findByAllFields()` care ar verifica daca are loc cautarea dupa `email`.
 
-. Creeaza clasa cu teste pentru `HomeController`. Adnoteaza clasa cu `@SpringBootTest` si `@AutoConfigureMockMvc`. Adauga campul privat
+. *Teste de integrare* Creeaza clasa cu teste pentru `HomeController`. Adnoteaza clasa cu `@SpringBootTest` si `@AutoConfigureMockMvc`. Adauga campul privat
 +
 [source, java]
 ----
@@ -673,8 +673,42 @@ a fost actualizat customer.
 
 . Adauga un test pentru oepratia de actualizarea a unui customer cu id inexistent.
 
-////
-. Intr-un proiect Spring Boot creeaza controller-ul `MovieController` si clasa `MovieLister`. Adnoteaza controlerul cu `@RestController`, iar `MovieLister` cu `@Service` (e un caz particular al adnotarii `@Component`).
+. *Monitorizare şi supervizarea* Adauga dependinta _org.springframework.boot:spring-boot-starter-actuator_, iar in _application.properties_:
++
+[source, properties]
+----
+management.endpoints.web.exposure.include=*
+----
+
+Verificare:: acceseaza http://localhost:8080/actuator/env
+
+. Daca vei accesa http://localhost:8080/actuator/ vei observa toate endpoint-rile acestuia, de exemplu pa langa http://localhost:8081/actuator/env/ exista
+si http://localhost:8081/actuator/env/{toMatch}, unde {toMatch} este numele variabilei. Apeleaza http://localhost:8081/actuator/env/{toMatch} cu numele variabilei care  indica
+unde e instalat JDK.
+
+. Folosind href: http://localhost:8080/actuator/metrics/{requiredMetricName} determina numarul de clase incarcate si memoria utilizata de aplicatie.
+
+. Descopera (fa o lista) a adreselor (URL-urilor) disponibile in aplicatie prin http://localhost:8080/actuator/mappings.
+
+. Gaseste bean-ul `CustomerRepository` folsind http://localhost:8080/actuator/beans.
+
+. Pentru http://localhost:8080/actuator/health
++
+[source, properties]
+----
+management.endpoint.health.show-details=always
+----
++
+Folsind exemple de aici https://www.amitph.com/custom-health-check-spring-boot-actuator/ scrie un health indicator care va afisa numarul de customeri disponibili.
+
+. Scrie un test pentru indicator.
+
+. Scrie un nou endpoint pentru acutator care va contine, autorul aplicatie, grupa, cursul etc. Foloseste exemplul de aici https://www.baeldung
+.com/spring-boot-actuators#custom-endpoint.
+
+. *Bean-uri* Intr-un proiect Spring Boot creeaza controller-ul `MovieController` si clasa `MovieLister`. Adnoteaza controlerul cu `@RestController`, iar `MovieLister` cu
+`@Service` (e
+un caz particular al adnotarii `@Component`).
 In `MovieLister` defineste metoda `list()`, aceasta metoda trebuie sa fie publica si sa intoarca un `String`, de exemplu `"A list of movies"`.
 Injecteaza `MovieLister` in `MovieController`, iar in `MovieController` defineste o metoda care va fi mapata la adresa "/movies/"  si va intoarce raspunsul de la serviciul `MovieLister`.
 
@@ -693,45 +727,39 @@ Verificare:: la accesarea http://localhost:8080/movies sa se afiseze _A list of 
 Cu alte cuvinte pentru clasa `WikipediaMovieLister` numele va fi `wikipediaMovieLister`. Pentru a indica numele bean-urlui de care avem nevoie,
 in constructor inaintea parametrilui se pune adnotarea `@Qualifier("<numele bean-ului>")`. Injecteaza bean-ul IMDb folosind `@Qualifier`.
 
-. [Altfel de injectare, prin @Bean]
 
-. [Injectare de proprietati din .properties]
+. Injectare, prin `@Bean` in clase cu `@Configuration`
 
-. [liste]
+. Injectarea de valori ale properietatilor din .properties
 
-. [dictionare]
+. Injectare de liste
 
-. [fuzionarea dictionarelor]
+. Injectare de dictionare
 
-. [null si empty value]
+. Fuzionarea dictionarelor (listelor)
 
-. [DependsOn]
+. `null` si empty value in contextul bean-urilor
 
-. [Lazy]
+. Adnotarea `@DependsOn`
 
-. [Applicatio0nContext]
+. Lazy
 
-. [scop: prototip]
+. Conceptul de Applicatio Context
 
-. [scop: singletone]
+. Scop: prototip
 
-. [scop: session]
+. Scop: singletone
 
-. [scop: request]
+. Scop: session
 
-[start=31]
+. Scop: request
 
-. [securitate]
+. Mai multe detalii despre controlere, receptionarea parametrilor `@RequestAttribute` etc
 
-[start=41]
+. sync/long running background tasks
 
-. [sync/long running background tasks]
+. securitate
 
-[start=51]
-
-. [mai multe detalii despre formulare/validare/date etc]
-
-[start=61]
 . Instaleaza PostgreSQL (inclusiv pgAdmin).
 Verificare:: lanseaza pgAdmin, ar trebui sa te poti conecta la serverul existent (sub nodul _Servers_ din panoul din stanga)
 folosind parola setata in timpul instalarii pentru utilizatorul _postgres_.
@@ -787,4 +815,3 @@ care apeleaza `findAll()` si intoarce rezultatul; porneste proiectul si acceseaz
 . [legatura Customer Address]
 
 . [CRUD Address]
-////
